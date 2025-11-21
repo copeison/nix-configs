@@ -7,9 +7,6 @@
   # Enable lightdm
   services.xserver.displayManager.lightdm.enable = true;
 
-  # Enable bluetooth
-  hardware.bluetooth.enable = true;
-
   # Enable flatpak
   services.flatpak.enable = true;
 
