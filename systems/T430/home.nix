@@ -1,0 +1,48 @@
+{ config, pkgs, lib, ... }:
+
+let
+  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/master.tar.gz;
+in
+{
+  imports =
+    [
+      (import "${home-manager}/nixos")
+    ];
+
+  users.users.ethan.isNormalUser = true;
+  home-manager.users.ethan = { pkgs, ... }: {
+    programs.bash.enable = true;
+
+  gtk = {
+      enable = true;
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = pkgs.papirus-icon-theme;
+      };
+      theme = {
+        name = "Adwaita-dark";
+        package = pkgs.gnome-themes-extra;
+      };
+    };
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 12;
+    };
+
+    home.username = "ethan";
+    home.homeDirectory = "/home/ethan";
+
+    home.packages = [ 
+      pkgs.starship 
+    ];
+
+    # The state version is required and should stay at the version you
+    # originally installed.
+    home.stateVersion = "25.11";
+  };
+}
