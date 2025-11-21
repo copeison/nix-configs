@@ -15,7 +15,7 @@ in
     ];
 
     programs.bash.enable = true;
-    
+
     # Add configs for programs
     home.file.".config/waybar".source = ./config/waybar;
     home.file.".config/waybar".recursive = true;

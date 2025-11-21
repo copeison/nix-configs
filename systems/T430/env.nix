@@ -42,7 +42,14 @@
 
   qt = {
     enable = true;
-    platformTheme = "lxqt";
+    platformTheme = "kde";
     style = "adwaita-dark";
+  };
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableBrowserSocket = true;
+    enableExtraSocket = true;
+    enableSSHSupport = true;
   };
 }
