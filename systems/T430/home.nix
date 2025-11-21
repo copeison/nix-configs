@@ -11,7 +11,12 @@ in
 
   users.users.ethan.isNormalUser = true;
   home-manager.users.ethan = { pkgs, ... }: {
+    imports = [
+    ];
+
     programs.bash.enable = true;
+    
+    # Add configs for programs
     home.file.".config/waybar".source = ./config/waybar;
     home.file.".config/waybar".recursive = true;
     home.file.".config/rofi".source = ./config/rofi;
