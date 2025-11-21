@@ -48,7 +48,6 @@
     deno
     gedit
     btop
-    github-desktop
     (pkgs.callPackage pkgs/patreon-dl-gui {})
   ];
 
