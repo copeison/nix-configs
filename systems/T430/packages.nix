@@ -48,7 +48,9 @@
     deno
     gedit
     btop
-    (pkgs.callPackage pkgs/patreon-dl-gui {})
+    osu-stable
+    osu-gatari
+    patreon-dl-gui
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono];
