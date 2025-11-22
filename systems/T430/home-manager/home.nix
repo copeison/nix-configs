@@ -14,6 +14,7 @@ in
     imports = [
       programs/fastfetch.nix
       programs/git.nix
+      programs/zsh.nix
     ];
 
     programs.bash.enable = true;
@@ -31,6 +32,8 @@ in
     home.file.".config/hypr".recursive = true;
     home.file.".config/alacritty".source = ./config/alacritty;
     home.file.".config/alacritty".recursive = true;
+    home.file.".config/zsh/omz-custom".source = ./config/omz-custom;
+    home.file.".config/zsh/omz-custom".recursive = true;
 
   gtk = {
       enable = true;
@@ -57,7 +60,6 @@ in
     home.homeDirectory = "/home/ethan";
 
     home.packages = [
-      pkgs.starship
     ];
 
     # The state version is required and should stay at the version you
