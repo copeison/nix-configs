@@ -48,6 +48,7 @@
     deno
     gedit
     btop
+    fontconfig
     osu-stable
     osu-gatari
     patreon-dl-gui

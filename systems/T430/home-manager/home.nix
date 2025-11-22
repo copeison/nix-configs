@@ -13,6 +13,7 @@ in
   home-manager.users.ethan = { pkgs, ... }: {
     imports = [
       programs/fastfetch.nix
+      programs/git.nix
     ];
 
     programs.bash.enable = true;
