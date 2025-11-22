@@ -40,9 +40,16 @@
       };
     };
 
+  programs.dconf = {
+    enable = true;
+    profiles.user.databases = [{
+      settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    }];
+  };
+
   qt = {
     enable = true;
-    platformTheme = "lxqt";
+    platformTheme = "qt5ct";
     style = "adwaita-dark";
   };
 
