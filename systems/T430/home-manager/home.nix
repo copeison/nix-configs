@@ -54,8 +54,8 @@ in
     home.username = "ethan";
     home.homeDirectory = "/home/ethan";
 
-    home.packages = [ 
-      pkgs.starship 
+    home.packages = [
+      pkgs.starship
     ];
 
     # The state version is required and should stay at the version you
