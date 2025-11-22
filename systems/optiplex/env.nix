@@ -42,7 +42,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "kde";
+    platformTheme = "lxqt";
     style = "adwaita-dark";
   };
 
