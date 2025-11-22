@@ -12,6 +12,7 @@ in
   users.users.ethan.isNormalUser = true;
   home-manager.users.ethan = { pkgs, ... }: {
     imports = [
+      programs/fastfetch.nix
     ];
 
     programs.bash.enable = true;
