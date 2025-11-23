@@ -13,14 +13,11 @@
     nano
     git
     blueman
-    rofi
-    discord
     mpv
     vlc
-    cider2
+    cider-2
     fastfetch
     xdg-user-dirs
-    wl-clipboard
     pwvucontrol
     libarchive
     unrar
