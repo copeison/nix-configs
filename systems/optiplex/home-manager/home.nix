@@ -38,6 +38,7 @@ in
     home.homeDirectory = "/home/ethan";
 
     home.packages = [
+      pkgs.filezilla
     ];
 
     # The state version is required and should stay at the version you
