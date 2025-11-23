@@ -19,7 +19,7 @@ in
 
     # Add configs for programs
     home.file.".config/zsh/omz-custom".source = ./config/omz-custom;
-    home.file.".config/zsh/omz-custom".recursive = true
+    home.file.".config/zsh/omz-custom".recursive = true;
 
   gtk = {
       enable = true;
