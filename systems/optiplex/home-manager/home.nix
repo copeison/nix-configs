@@ -12,23 +12,14 @@ in
   users.users.ethan.isNormalUser = true;
   home-manager.users.ethan = { pkgs, ... }: {
     imports = [
+      programs/zsh.nix
     ];
 
     programs.bash.enable = true;
 
     # Add configs for programs
-    home.file.".config/waybar".source = ./config/waybar;
-    home.file.".config/waybar".recursive = true;
-    home.file.".config/rofi".source = ./config/rofi;
-    home.file.".config/rofi".recursive = true;
-    home.file.".local/share/rofi".source = ./themes/rofi;
-    home.file.".local/share/rofi".recursive = true;
-    home.file.".config/mako".source = ./config/mako;
-    home.file.".config/mako".recursive = true;
-    home.file.".config/hypr".source = ./config/hypr;
-    home.file.".config/hypr".recursive = true;
-    home.file.".config/alacritty".source = ./config/alacritty;
-    home.file.".config/alacritty".recursive = true;
+    home.file.".config/zsh/omz-custom".source = ./config/omz-custom;
+    home.file.".config/zsh/omz-custom".recursive = true
 
   gtk = {
       enable = true;
@@ -43,19 +34,10 @@ in
       };
     };
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 12;
-    };
-
     home.username = "ethan";
     home.homeDirectory = "/home/ethan";
 
-    home.packages = [ 
-      pkgs.starship 
+    home.packages = [
     ];
 
     # The state version is required and should stay at the version you

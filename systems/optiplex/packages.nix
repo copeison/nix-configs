@@ -14,43 +14,20 @@
     curl
     nano
     git
-    kitty
-    alacritty
-    bluetui
     blueman
     rofi
     discord
-    kdePackages.dolphin
-    kdePackages.ark
     mpv
     vlc
-    cider-2
-    swww
-    waypaper
-    hypridle
-    hyprlock
-    hyprpolkitagent
-    mako
-    lxsession
+    cider2
     fastfetch
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
     xdg-user-dirs
-    jq
-    grim
-    slurp
     wl-clipboard
     pwvucontrol
     libarchive
     unrar
-    vscode
-    filezilla
-    deno
     gedit
     btop
-    osu-stable
-    osu-gatari
-    patreon-dl-gui
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono];

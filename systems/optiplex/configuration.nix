@@ -9,7 +9,6 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       home-manager/home.nix
-      pkgs/overlays.nix
       ./nix-settings.nix
       ./services.nix
       ./networking.nix
@@ -29,15 +28,7 @@
 
   hardware = {
     bluetooth.enable = true;
-    opentabletdriver = {
-      enable = true;
-      daemon.enable = true;
-    };
   };
-
-  # Required by OpenTabletDriver
-  hardware.uinput.enable = true;
-  boot.kernelModules = [ "uinput" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

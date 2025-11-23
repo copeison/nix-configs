@@ -4,8 +4,10 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable lightdm
-  services.xserver.displayManager.lightdm.enable = true;
+  # Enable KDE, sddm, and Wayland.
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Enable flatpak
   services.flatpak.enable = true;
