@@ -51,6 +51,7 @@
     fontconfig
     prismlauncher
     jre21_minimal
+    spotify
     osu-stable
     osu-gatari
     patreon-dl-gui
