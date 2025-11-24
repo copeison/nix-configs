@@ -49,6 +49,8 @@
     gedit
     btop
     fontconfig
+    prismlauncher
+    jre21_minimal
     osu-stable
     osu-gatari
     patreon-dl-gui
