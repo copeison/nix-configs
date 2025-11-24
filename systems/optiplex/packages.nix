@@ -10,16 +10,10 @@
     curl
     nano
     git
-    blueman
     mpv
     vlc
     cider-2
     fastfetch
-    xdg-user-dirs
-    pwvucontrol
-    libarchive
-    unrar
-    gedit
     btop
   ];
 
