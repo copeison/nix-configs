@@ -50,7 +50,7 @@
     btop
     fontconfig
     prismlauncher
-    jre21_minimal
+    jdk21
     spotify
     osu-stable
     osu-gatari
