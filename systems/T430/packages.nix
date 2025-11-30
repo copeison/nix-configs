@@ -7,6 +7,12 @@
   programs.hyprland.enable = true;
   programs.waybar.enable = true;
 
+  programs.steam = {
+  enable = true;
+  remotePlay.openFirewall = true;
+  dedicatedServer.openFirewall = true;
+  };
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
