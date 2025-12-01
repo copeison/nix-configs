@@ -39,6 +39,12 @@
   hardware.uinput.enable = true;
   boot.kernelModules = [ "uinput" ];
 
+  fileSystems."/mnt/data" = {
+      device = "10.0.0.254:/data/Share";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "soft" ];
+    };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

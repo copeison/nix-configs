@@ -58,6 +58,7 @@
     prismlauncher
     jdk21
     spotify
+    nfs-utils
     osu-stable
     osu-gatari
     patreon-dl-gui
