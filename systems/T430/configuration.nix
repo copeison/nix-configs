@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       home-manager/home.nix
-      pkgs/overlays.nix
+      ../../pkgs/overlays.nix
       ./nix-settings.nix
       ./services.nix
       ./networking.nix
