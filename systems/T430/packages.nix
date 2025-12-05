@@ -64,6 +64,9 @@
     jdk21
     spotify
     nfs-utils
+    agenix
+    colmena
+    ajax-deploy
     jellyfin-media-player
     osu-stable
     osu-gatari

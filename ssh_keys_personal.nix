@@ -1,0 +1,3 @@
+[
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMcfR7F64p8vCDFgwx2QtQClL9sFDrrKX6BgufAnBM1z" # main ssh key
+]

@@ -17,6 +17,7 @@
       ./users.nix
       ./env.nix
       ./filesystem.nix
+      ./agenix.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
