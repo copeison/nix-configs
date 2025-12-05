@@ -61,7 +61,10 @@ in
 
     home.packages = [
       pkgs.nextcloud-client
+      pkgs.jetbrains.rider
     ];
+
+    nixpkgs.config.allowUnfree = true;
 
     # The state version is required and should stay at the version you
     # originally installed.

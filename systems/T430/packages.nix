@@ -64,6 +64,7 @@
     jdk21
     spotify
     nfs-utils
+    dotnetCorePackages.sdk_9_0-bin
     agenix
     colmena
     ajax-deploy
