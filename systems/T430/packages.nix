@@ -13,6 +13,11 @@
   dedicatedServer.openFirewall = true;
   };
 
+  # temp remove later.
+  nixpkgs.config.permittedInsecurePackages = [
+    "qtwebengine-5.15.19"
+    ];
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -59,6 +64,7 @@
     jdk21
     spotify
     nfs-utils
+    jellyfin-media-player
     osu-stable
     osu-gatari
     patreon-dl-gui

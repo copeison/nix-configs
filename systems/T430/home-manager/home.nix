@@ -60,6 +60,7 @@ in
     home.homeDirectory = "/home/ethan";
 
     home.packages = [
+      pkgs.nextcloud-client
     ];
 
     # The state version is required and should stay at the version you
