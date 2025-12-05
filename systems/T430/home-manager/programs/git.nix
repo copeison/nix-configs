@@ -1,7 +1,7 @@
 {
   programs.git = {
     enable = true;
-    settings.user.email = "unisonsolos@gmail.com";
-    settings.user.name = "unison";
+    settings.user.email = "184175589+copeison@users.noreply.github.com";
+    settings.user.name = "copeison";
   };
 }
