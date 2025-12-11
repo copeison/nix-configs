@@ -5,18 +5,13 @@
 
   programs.firefox.enable = true;
   programs.hyprland.enable = true;
-  programs.waybar.enable = true;
+  programs.adb.enable = true;
 
   programs.steam = {
   enable = true;
   remotePlay.openFirewall = true;
   dedicatedServer.openFirewall = true;
   };
-
-  # temp remove later.
-  nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19"
-    ];
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -38,6 +33,7 @@
     cider-2
     swww
     waypaper
+    waybar
     hypridle
     hyprlock
     hyprpolkitagent
@@ -65,14 +61,14 @@
     spotify
     nfs-utils
     dotnetCorePackages.sdk_9_0-bin
+    qimgv
     agenix
     colmena
     ajax-deploy
-    jellyfin-media-player
     osu-stable
     osu-gatari
     patreon-dl-gui
   ];
 
-  fonts.packages = with pkgs; [nerd-fonts.roboto-mono];
+  fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];
 }
