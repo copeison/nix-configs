@@ -25,12 +25,10 @@
     bluetui
     blueman
     rofi
-    discord
     kdePackages.dolphin
     kdePackages.ark
     mpv
     vlc
-    cider-2
     swww
     waypaper
     waybar
@@ -50,18 +48,12 @@
     pwvucontrol
     libarchive
     unrar
-    vscode
-    filezilla
     deno
-    gedit
     btop
     fontconfig
-    prismlauncher
     jdk21
-    spotify
     nfs-utils
     dotnetCorePackages.sdk_9_0-bin
-    qimgv
     agenix
     colmena
     ajax-deploy

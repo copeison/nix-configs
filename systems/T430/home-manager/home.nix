@@ -58,10 +58,17 @@ in
 
     home.username = "ethan";
     home.homeDirectory = "/home/ethan";
-
     home.packages = [
       pkgs.nextcloud-client
       pkgs.jetbrains.rider
+      pkgs.qimgv
+      pkgs.spotify
+      pkgs.prismlauncher
+      pkgs.gedit
+      pkgs.filezilla
+      pkgs.vscode
+      pkgs.cider-2
+      pkgs.discord
     ];
 
     nixpkgs.config.allowUnfree = true;
