@@ -25,6 +25,7 @@ in {
         launchArgs = "-devserver gatari.pw";
       };
       patreon-dl-gui = self.callPackage ./patreon-dl-gui {};
+      spotatui = self.callPackage ./spotatui {};
     })
   ];
 }

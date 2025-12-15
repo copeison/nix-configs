@@ -16,7 +16,7 @@
       ./packages.nix
       ./users.nix
       ./env.nix
-      ./filesystem.nix
+      ./nfsmounts.nix
       ./agenix.nix
     ];
 

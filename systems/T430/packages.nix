@@ -59,6 +59,7 @@
     ajax-deploy
     osu-stable
     osu-gatari
+    spotatui
     patreon-dl-gui
   ];
 
