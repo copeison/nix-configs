@@ -1,18 +1,13 @@
 { pkgs ? import <nixpkgs> {} }:
 
-pkgs.rustPlatform.buildRustPackage rec {
-  pname = "spotatui";
-  version = "0.34.2";
+  pkgs.rustPlatform.buildRustPackage rec {
+    pname = "spotatui";
+    version = "0.34.3";
 
-  src = pkgs.fetchFromGitHub {
-    owner = "LargeModGames";
-    repo = "spotatui";
-    rev = "v${version}";
-    hash = "sha256-bSmtXRf5lnh/sPZsNg8GGDVnFOfGIpBzp3ZaF+rkXpc=";
-  };
+  src = pkgs.lib.cleanSource ./.;
 
- cargoLock = {
-    lockFile = "${src}/Cargo.lock";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
   };
 
   nativeBuildInputs = with pkgs; [
@@ -30,14 +25,14 @@ pkgs.rustPlatform.buildRustPackage rec {
   ];
 
   postFixup = ''
-    patchelf \
-      --set-rpath "${pkgs.lib.makeLibraryPath [
-        pkgs.openssl
-        pkgs.alsa-lib
-        pkgs.dbus
-        pkgs.pipewire
-      ]}" \
-      $out/bin/spotatui
+  patchelf \
+    --set-rpath "${pkgs.lib.makeLibraryPath [
+      pkgs.openssl
+      pkgs.alsa-lib
+      pkgs.dbus
+      pkgs.pipewire
+    ]}" \
+    $out/bin/spotatui
   '';
 
   meta = with pkgs.lib; {
