@@ -67,6 +67,8 @@ in
       pkgs.filezilla
       pkgs.vscode
       pkgs.discord
+      pkgs.fallout-ce
+      pkgs.fallout2-ce
     ];
 
     nixpkgs.config.allowUnfree = true;

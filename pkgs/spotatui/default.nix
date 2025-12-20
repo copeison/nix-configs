@@ -2,7 +2,7 @@
 
   pkgs.rustPlatform.buildRustPackage rec {
     pname = "spotatui";
-    version = "0.34.3";
+    version = "0.34.5";
 
   src = pkgs.lib.cleanSource ./.;
 
@@ -12,7 +12,6 @@
 
   nativeBuildInputs = with pkgs; [
     pkg-config
-    patchelf
     llvmPackages.clang
     llvmPackages.libclang
   ];
@@ -23,17 +22,6 @@
     dbus
     pipewire
   ];
-
-  postFixup = ''
-  patchelf \
-    --set-rpath "${pkgs.lib.makeLibraryPath [
-      pkgs.openssl
-      pkgs.alsa-lib
-      pkgs.dbus
-      pkgs.pipewire
-    ]}" \
-    $out/bin/spotatui
-  '';
 
   meta = with pkgs.lib; {
     description = "Terminal UI Spotify client";
