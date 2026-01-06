@@ -53,7 +53,6 @@
     fontconfig
     jdk21
     nfs-utils
-    dotnetCorePackages.sdk_9_0-bin
     agenix
     colmena
     ajax-deploy

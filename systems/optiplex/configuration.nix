@@ -1,77 +1,64 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, ... }:
-
+{ config, lib, pkgs, modulesPath, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      home-manager/home.nix
-      ./nix-settings.nix
-      ./services.nix
-      ./networking.nix
-      ./packages.nix
-      ./users.nix
-      ./env.nix
-    ];
+  imports = [
+    "${modulesPath}/installer/scan/not-detected.nix"
+    services/openssh.nix
+    ./boot.nix
+    ./env.nix
+    ./users.nix
+  ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  environment.systemPackages = with pkgs; [
+    btop
+    conntrack-tools
+    fastfetch
+    gdb
+    git
+    inetutils
+    iperf
+    minica
+    ncdu
+    ndisc6
+    net-tools
+    openssl
+    screen
+    tcpdump
+    wget
+  ];
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
+  hardware.cpu.intel.updateMicrocode = true;
+
+  fileSystems = {
+    "/" = {
+      device = "NIXOS_ROOTFS";
+      fsType = "ext4";
+    };
+    "/boot" = {
+      label = "NIXOS_BOOT";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+    "/data" = {
+      device = "/dev/disk/by-uuid/12b6d6df-10f4-458e-83e5-2be8f4f4757e";
+      fsType = "ext4";
+    };
   };
 
-  hardware = {
-    bluetooth.enable = true;
+  networking = {
+    firewall = {
+      allowedTCPPorts = [
+        80 # HTTP
+        443 # HTTPS
+      ];
+    };
+    hostId = "eca03077";
+    hostName = "r33-local";
+    useDHCP = true;
+    usePredictableInterfaceNames = false;
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "25.11"; # Did you read the comment?
-
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "unisonsolos@gmail.com";
+  };
 }
-

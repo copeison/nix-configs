@@ -59,7 +59,6 @@ in
     home.username = "ethan";
     home.homeDirectory = "/home/ethan";
     home.packages = [
-      pkgs.jetbrains.rider
       pkgs.qimgv
       pkgs.spotify
       pkgs.prismlauncher
@@ -69,6 +68,8 @@ in
       pkgs.discord
       pkgs.fallout-ce
       pkgs.fallout2-ce
+      pkgs.makemkv
+      pkgs.audacity
     ];
 
     nixpkgs.config.allowUnfree = true;
