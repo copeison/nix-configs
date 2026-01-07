@@ -11,12 +11,14 @@
     services/sonarr.nix
     services/nfs.nix
     services/pihole.nix
+    services/biolink.nix
     ./boot.nix
     ./env.nix
     ./users.nix
   ];
 
   environment.systemPackages = with pkgs; [
+    biolink
     btop
     conntrack-tools
     dig

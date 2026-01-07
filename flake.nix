@@ -10,6 +10,7 @@
     flakeOverlays = [
       (self: super: {
         agenix = agenix.outputs.packages.x86_64-linux.agenix;
+        biolink = self.callPackage pkgs/BioLink {};
       })
     ];
 
