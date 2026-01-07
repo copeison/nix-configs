@@ -1,6 +1,17 @@
 {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      configurationLimit = 100;
+      copyKernels = true;
+      device = "nodev";
+      efiSupport = true;
+      efiInstallAsRemovable = false;
+      memtest86.enable = true;
+    };
+    timeout = 10;
+  };
 
   boot = {
     consoleLogLevel = 0;
@@ -22,19 +33,15 @@
         "sr_mod"
       ];
       kernelModules = [ ];
-      systemd.enable = true;
     };
     kernelModules = [
       "kvm-intel"
     ];
     kernelParams = [
-      # Enable high-poll rate USB Keyboard devices
-      "usbhid.kbpoll=1"
       # Boot a shell on failure
       "boot.shell_on_fail"
       # Show systemd
       "rd.systemd.show_status=auto"
     ];
-    tmp.useTmpfs = false;
   };
 }

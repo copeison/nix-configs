@@ -18,6 +18,7 @@
       ./env.nix
       ./nfsmounts.nix
       ./agenix.nix
+      ./dnsmasq.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
