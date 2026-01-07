@@ -2,16 +2,17 @@
 {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
-    services/openssh.nix
-    services/dockge.nix
-    services/nginx.nix
-    services/jellyfin.nix
-    services/prowlarr.nix
-    services/radarr.nix
-    services/sonarr.nix
-    services/nfs.nix
-    services/pihole.nix
-    services/biolink.nix
+    services/system/openssh.nix
+    services/web/dockge.nix
+    services/web/nginx.nix
+    services/media/jellyfin.nix
+    services/media/prowlarr.nix
+    services/media/radarr.nix
+    services/media/sonarr.nix
+    services/fileshare/nfs.nix
+    services/fileshare/samba.nix
+    services/local/pihole.nix
+    services/web/biolink.nix
     ./boot.nix
     ./env.nix
     ./users.nix
