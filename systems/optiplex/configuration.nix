@@ -5,6 +5,7 @@
     services/system/openssh.nix
     services/web/dockge.nix
     services/web/nginx.nix
+    services/web/biolink.nix
     services/media/jellyfin.nix
     services/media/prowlarr.nix
     services/media/radarr.nix
@@ -12,7 +13,6 @@
     services/fileshare/nfs.nix
     services/fileshare/samba.nix
     services/local/pihole.nix
-    services/web/biolink.nix
     ./boot.nix
     ./env.nix
     ./users.nix
