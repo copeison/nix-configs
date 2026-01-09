@@ -42,7 +42,7 @@
 
   fileSystems = {
     "/" = {
-      device = "NIXOS_ROOTFS";
+      device = "/dev/disk/by-label/NIXOS_ROOTFS";
       fsType = "ext4";
     };
     "/boot" = {

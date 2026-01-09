@@ -1,2 +1,3 @@
 pkgs/patreon-dl-gui/*.tar.gz
 pkgs/spotatui/
+pkgs/BioLink/.env

@@ -1,4 +1,5 @@
 {config, ...}:
+
 {
   age.identityPaths = [
     "/etc/ssh/ssh_host_rsa_key"
