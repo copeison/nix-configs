@@ -4,7 +4,6 @@
     "${modulesPath}/installer/scan/not-detected.nix"
     services/system/openssh.nix
     services/web/dockge.nix
-    services/web/nginx.nix
     services/web/biolink.nix
     services/media/jellyfin.nix
     services/media/prowlarr.nix
