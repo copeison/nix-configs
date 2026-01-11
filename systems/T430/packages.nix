@@ -60,7 +60,12 @@
     osu-gatari
     spotatui
     patreon-dl-gui
+    ventoy-full-gtk
   ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "ventoy-gtk3-1.1.07"
+    ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];
 }

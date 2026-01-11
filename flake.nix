@@ -31,6 +31,16 @@
           systems/optiplex/configuration.nix
         ];
       };
+      shitbox = {
+        deployment = {
+          targetHost = "10.0.0.172";
+          targetUser = "root";
+        };
+        imports = [
+          agenix.nixosModules.age
+          systems/shitbox/configuration.nix
+        ];
+      };
     };
   };
 }
