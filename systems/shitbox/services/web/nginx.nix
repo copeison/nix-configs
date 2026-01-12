@@ -34,6 +34,20 @@
     experimentalZstdSettings = true;
   };
 
+    services.nginx.virtualHosts."pawjob.online" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "http://10.0.0.152:6969";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header CF-Connecting-IP $remote_addr;
+      '';
+    };
+  };
+
   services.nginx.virtualHosts."geta.pawjob.online" = {
       enableACME = true;
       forceSSL = true;
@@ -94,20 +108,6 @@
     locations."/" = {
         proxyPass = "http://10.0.0.152:5001";
         proxyWebsockets = true;
-    };
-  };
-
-  services.nginx.virtualHosts."pawjob.online" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-      proxyPass = "http://10.0.0.152:6969";
-      proxyWebsockets = true;
-      extraConfig = ''
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        proxy_set_header CF-Connecting-IP $remote_addr;
-      '';
     };
   };
 }
