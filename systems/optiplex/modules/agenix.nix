@@ -6,8 +6,8 @@
   ];
 
   age.secrets = {
-    wg0 = {
-      file = ../../../secrets/wg0.age;
+    wireguard = {
+      file = ../../../secrets/wireguard.age;
       owner = "root";
       group = "root";
     };

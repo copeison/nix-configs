@@ -10,7 +10,6 @@
 
     services/system/openssh.nix
 
-    services/web/nginx.nix
   ];
 
   environment.systemPackages = with pkgs; [

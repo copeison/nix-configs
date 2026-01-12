@@ -33,14 +33,6 @@
     };
   };
 
-  services.nginx.virtualHosts."pihole.localnet" = {
-    forceSSL = false;
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:9810";
-      proxyWebsockets = true;
-    };
-  };
-
   services.kresd.enable = lib.mkForce false;
   services.kresd.instances = 0;
 }

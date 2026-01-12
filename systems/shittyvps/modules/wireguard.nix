@@ -30,13 +30,13 @@ in {
       ${iptables}/bin/iptables -t nat -A POSTROUTING -s 10.127.0.0/24 -o eth0 -j MASQUERADE
       ${iptables}/bin/ip6tables -t nat -A POSTROUTING -s fd00:127::/64 -o eth0 -j MASQUERADE
 
-      for x in 80 3700; do
-        ${iptables}/bin/iptables -t nat -A PREROUTING -i eth0 -p tcp --dport ''${x} -j DNAT --to-destination 10.127.0.3:''${x} || true
-        ${iptables}/bin/ip6tables -t nat -A PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination fd00:127::3:''${x} || true
+      for x in 80 443 3700; do
+        ${iptables}/bin/iptables -t nat -A PREROUTING -i eth0 -p tcp --dport ''${x} -j DNAT --to-destination 10.127.0.2:''${x} || true
+        ${iptables}/bin/ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport ''${x} -j DNAT --to-destination fd00:127::2:''${x} || true
       done
       for x in 37000 4101 6990; do
-        ${iptables}/bin/iptables -t nat -A PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination 10.127.0.3:''${x} || true
-        ${iptables}/bin/ip6tables -t nat -A PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination fd00:127::3:''${x} || true
+        ${iptables}/bin/iptables -t nat -A PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination 10.127.0.2:''${x} || true
+        ${iptables}/bin/ip6tables -t nat -A PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination fd00:127::2:''${x} || true
       done
 
       ${iptables}/bin/iptables -A FORWARD -s 10.127.0.0/24 -j ACCEPT || true
@@ -51,13 +51,13 @@ in {
       ${iptables}/bin/iptables -t nat -D POSTROUTING -s 10.127.0.0/24 -o eth0 -j MASQUERADE || true
       ${iptables}/bin/ip6tables -t nat -D POSTROUTING -s fd00:127::/64 -o eth0 -j MASQUERADE
 
-      for x in 80 3700; do
-        ${iptables}/bin/iptables -t nat -D PREROUTING -i eth0 -p tcp --dport ''${x} -j DNAT --to-destination 10.127.0.3:''${x} || true
-        ${iptables}/bin/ip6tables -t nat -D PREROUTING -i eth0 -p tcp --dport ''${x} -j DNAT --to-destination 10.127.0.3:''${x} || true
+      for x in 80 443 3700; do
+        ${iptables}/bin/iptables -t nat -D PREROUTING -i eth0 -p tcp --dport ''${x} -j DNAT --to-destination 10.127.0.2:''${x} || true
+        ${iptables}/bin/ip6tables -t nat -D PREROUTING -i eth0 -p tcp --dport ''${x} -j DNAT --to-destination 10.127.0.2:''${x} || true
       done
       for x in 3700 6990; do
-        ${iptables}/bin/iptables -t nat -D PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination 10.127.0.3:''${x} || true
-        ${iptables}/bin/ip6tables -t nat -D PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination fd00:127::3:''${x} || true
+        ${iptables}/bin/iptables -t nat -D PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination 10.127.0.2:''${x} || true
+        ${iptables}/bin/ip6tables -t nat -D PREROUTING -i eth0 -p udp --dport ''${x} -j DNAT --to-destination fd00:127::2:''${x} || true
       done
 
       ${iptables}/bin/iptables -D FORWARD -s 10.127.0.0/24 -j ACCEPT || true
