@@ -5,8 +5,6 @@
     services/system/openssh.nix
     services/web/nginx.nix
     ./boot.nix
-    ./env.nix
-    ./users.nix
   ];
 
   environment.systemPackages = with pkgs; [
