@@ -15,6 +15,7 @@
   environment.systemPackages = with pkgs; [
     btop
     conntrack-tools
+    dig
     fastfetch
     gdb
     git

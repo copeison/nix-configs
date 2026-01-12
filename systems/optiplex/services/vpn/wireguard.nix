@@ -6,7 +6,7 @@ let
   vethNSIP4 = "192.168.100.2";
   vethHostIP6 = "fd00:100::1";
   vethNSIP6 = "fd00:100::2";
-  vethName = "veth0"; # host side
+  vethName = "veth9"; # host side
   hostIF = "eth0";
   vpsIP = "74.208.73.245";
   vpsIPv6 = "2607:f1c0:f01e:fa00::1";
@@ -39,8 +39,9 @@ in {
       allowPing = true;
       allowedUDPPorts = [ 51820 ];
       checkReversePath = false;
-      interfaces.veth0 = {
+      interfaces.${vethName} = {
         allowedTCPPortRanges = [{ from = 0; to = 65535; }];
+        allowedUDPPortRanges = [{ from = 0; to = 65535; }];
       };
     };
   };

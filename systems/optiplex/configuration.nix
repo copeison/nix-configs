@@ -76,6 +76,8 @@ in {
       ];
       allowedUDPPorts = [
         51820 # WireGuard
+        6990
+        3700
       ];
     };
     hostId = "eca03077";
@@ -86,6 +88,7 @@ in {
 
   systemd.services = {
     rtorrent.serviceConfig = mkNamespace {};
+    nginx.serviceConfig = mkNamespace {};
   };
 
   security.acme = {

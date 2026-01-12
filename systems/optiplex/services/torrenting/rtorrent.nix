@@ -92,9 +92,9 @@ in {
       log.add_output = "info", "log"
       log.add_output = "error", "log"
       log.add_output = "dht_router", "log"
-      #log.add_output = "debug", "log"
+      log.add_output = "debug", "log"
       #log.add_output = "dht_debug", "log"
-      #log.add_output = "peer_debug", "log"
+      log.add_output = "peer_debug", "log"
       #log.add_output = "tracker_debug", "log"
 
       # XMLRPC
