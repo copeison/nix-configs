@@ -2,6 +2,8 @@
 {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
+    modules/agenix.nix
+    modules/boot.nix
     services/system/openssh.nix
     services/web/dockge.nix
     services/web/biolink.nix
@@ -13,9 +15,6 @@
     services/fileshare/nfs.nix
     services/fileshare/samba.nix
     services/local/pihole.nix
-    ./boot.nix
-    ./env.nix
-    ./users.nix
   ];
 
   environment.systemPackages = with pkgs; [

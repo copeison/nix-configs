@@ -31,6 +31,7 @@
           agenix.nixosModules.age
           vpn-confinement.nixosModules.default
           systems/optiplex/configuration.nix
+          ./core.nix
         ];
       };
       shitbox = {
@@ -41,6 +42,18 @@
         imports = [
           agenix.nixosModules.age
           systems/shitbox/configuration.nix
+          ./core.nix
+        ];
+      };
+      shittyvps = {
+        deployment = {
+          targetHost = "74.208.73.245";
+          targetUser = "root";
+        };
+        imports = [
+          agenix.nixosModules.age
+          systems/shittyvps/configuration.nix
+          ./core.nix
         ];
       };
     };
