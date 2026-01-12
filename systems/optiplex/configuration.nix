@@ -1,13 +1,14 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 let
-mkNamespace = { name ? "netns" }: {
-      NetworkNamespacePath = "/run/${name}/container";
-      InaccessiblePaths = [
-        "/run/nscd"
-        "/run/resolvconf"
-      ];
-    };
+  mkNamespace = { name ? "netns" }: {
+    NetworkNamespacePath = "/run/${name}/container";
+    InaccessiblePaths = [
+      "/run/nscd"
+      "/run/resolvconf"
+    ];
+    BindReadOnlyPaths = [ "/etc/netns-resolv.conf:/etc/resolv.conf" ];
+  };
 in {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
@@ -29,6 +30,14 @@ in {
     services/fileshare/samba.nix
     services/local/pihole.nix
   ];
+
+    environment.etc."netns-resolv.conf".text = ''
+    nameserver 1.1.1.1
+    nameserver 8.8.8.8
+    nameserver 2001:4860:4860::8888
+    nameserver 2606:4700:4700::1111
+    options edns0
+  '';
 
   environment.systemPackages = with pkgs; [
     biolink
@@ -73,6 +82,7 @@ in {
     firewall = {
       allowedTCPPorts = [
         6969 # BioLink site
+        3700
       ];
       allowedUDPPorts = [
         51820 # WireGuard
