@@ -47,8 +47,8 @@ in {
       # Verify hash on completion
       pieces.hash.on_completion.set = yes
 
-      # Ratelimit to 10MiB/s on down, 1MiB/s on up
-      throttle.global_down.max_rate.set_kb = 10240
+      # Ratelimit to 30MiB/s on down, 1MiB/s on up
+      throttle.global_down.max_rate.set_kb = 30720
       throttle.global_up.max_rate.set_kb = 1024
 
       protocol.encryption.set = allow_incoming,try_outgoing,enable_retry
