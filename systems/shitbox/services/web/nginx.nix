@@ -1,4 +1,6 @@
-{
+let
+  config.BaseDomain = "yutsu.wtf";
+in {
     services.nginx = {
     enable = true;
     enableReload = true;
@@ -34,7 +36,7 @@
     experimentalZstdSettings = true;
   };
 
-    services.nginx.virtualHosts."pawjob.online" = {
+    services.nginx.virtualHosts."${config.BaseDomain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
@@ -48,7 +50,7 @@
     };
   };
 
-  services.nginx.virtualHosts."geta.pawjob.online" = {
+  services.nginx.virtualHosts."kvm.${config.BaseDomain}" = {
       enableACME = true;
       forceSSL = true;
       locations."/" = {
@@ -57,16 +59,7 @@
       };
     };
 
-    services.nginx.virtualHosts."debrid.pawjob.online" = {
-        enableACME = true;
-        forceSSL = true;
-        locations."/" = {
-          proxyPass = "http://10.0.0.152:6500";
-          proxyWebsockets = true;
-        };
-    };
-
-    services.nginx.virtualHosts."iwanta.pawjob.online" = {
+    services.nginx.virtualHosts."watch.${config.BaseDomain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
@@ -75,7 +68,7 @@
     };
   };
 
-  services.nginx.virtualHosts."prowlarr.pawjob.online" = {
+  services.nginx.virtualHosts."prowlarr.${config.BaseDomain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
@@ -84,7 +77,7 @@
     };
   };
 
-  services.nginx.virtualHosts."radarr.pawjob.online" = {
+  services.nginx.virtualHosts."radarr.${config.BaseDomain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
@@ -93,7 +86,7 @@
     };
   };
 
-  services.nginx.virtualHosts."sonarr.pawjob.online" = {
+  services.nginx.virtualHosts."sonarr.${config.BaseDomain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
@@ -102,7 +95,7 @@
     };
   };
 
-  services.nginx.virtualHosts."dockge.pawjob.online" = {
+  services.nginx.virtualHosts."dockge.${config.BaseDomain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {

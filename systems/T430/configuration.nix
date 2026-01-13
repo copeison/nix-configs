@@ -38,6 +38,8 @@
     };
   };
 
+  hardware.enableRedistributableFirmware = true;
+
   # Required by OpenTabletDriver
   hardware.uinput.enable = true;
   boot.kernelModules = [ "uinput" ];

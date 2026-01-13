@@ -11,7 +11,7 @@
     ];
   };
 
-  services.nginx.virtualHosts."flood.pawjob.online" = {
+  services.nginx.virtualHosts."flood.yutsu.wtf" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {

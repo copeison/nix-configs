@@ -18,7 +18,6 @@ in {
     services/web/dockge.nix
     services/web/biolink.nix
     services/web/nginx.nix
-    #services/vpn/confinement.nix
     services/vpn/wireguard.nix
     services/torrenting/flood.nix
     services/torrenting/rtorrent.nix
