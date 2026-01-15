@@ -43,11 +43,6 @@
   };
 
   networking = {
-    extraHosts = ''
-      10.0.0.152 jellyfin.localnet ${config.networking.hostName}
-      10.0.0.152 kvm.localnet ${config.networking.hostName}
-      10.0.0.152 pihole.localnet ${config.networking.hostName}
-    '';
     firewall = {
       allowedTCPPorts = [
         80 # HTTP

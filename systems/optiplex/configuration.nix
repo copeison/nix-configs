@@ -78,6 +78,11 @@ in {
   };
 
   networking = {
+    extraHosts = ''
+      10.0.0.172 jellyfin.localnet ${config.networking.hostName}
+      10.0.0.172 kvm.localnet ${config.networking.hostName}
+      10.0.0.172 pihole.localnet ${config.networking.hostName}
+    '';
     firewall = {
       allowedTCPPorts = [
         6969 # BioLink site
