@@ -61,6 +61,7 @@
     osu-gatari
     spotatui
     patreon-dl-gui
+    fanbox-dl
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];

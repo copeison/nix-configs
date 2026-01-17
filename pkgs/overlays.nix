@@ -26,6 +26,7 @@ in {
       };
       patreon-dl-gui = self.callPackage ./patreon-dl-gui {};
       spotatui = self.callPackage ./spotatui {};
+      fanbox-dl = self.callPackage ./fanbox-dl {};
     })
   ];
 }
