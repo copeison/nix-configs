@@ -11,5 +11,11 @@
       owner = "root";
       group = "root";
     };
+
+    zipline = {
+      file = ../../../secrets/zipline.age;
+      owner = "root";
+      group = "root";
+    };
   };
 }

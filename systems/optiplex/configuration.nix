@@ -18,6 +18,7 @@ in {
     services/web/dockge.nix
     services/web/biolink.nix
     services/web/nginx.nix
+    services/web/zipline.nix
     services/vpn/wireguard.nix
     services/torrenting/flood.nix
     services/torrenting/rtorrent.nix
@@ -53,6 +54,7 @@ in {
     ndisc6
     net-tools
     openssl
+    python315
     screen
     tcpdump
     wget
@@ -86,7 +88,9 @@ in {
     firewall = {
       allowedTCPPorts = [
         6969 # BioLink site
+        3000 # Zipline
         3700
+        8080
       ];
       allowedUDPPorts = [
         51820 # WireGuard

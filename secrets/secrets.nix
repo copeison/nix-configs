@@ -9,6 +9,7 @@ let
 
 in {
   "nix-netrc.age".publicKeys = keys;
+  "zipline.age".publicKeys = keys ++ [ r33-local ];
   "wireguard.age".publicKeys = ssh_keys ++ [ r33-local ];
   "wireguard-server.age".publicKeys = ssh_keys ++ [
     shittyvps

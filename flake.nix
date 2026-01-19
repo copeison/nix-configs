@@ -2,9 +2,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
-    vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
   };
-  outputs = inputs@{ self, nixpkgs, agenix, vpn-confinement }:
+  outputs = inputs@{ self, nixpkgs, agenix }:
   let
     system = "x86_64-linux";
 
@@ -29,7 +28,6 @@
         };
         imports = [
           agenix.nixosModules.age
-          vpn-confinement.nixosModules.default
           systems/optiplex/configuration.nix
           ./core.nix
         ];
