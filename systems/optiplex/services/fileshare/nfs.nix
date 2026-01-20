@@ -17,9 +17,9 @@ in {
     lockdPort = lockd-port;
     mountdPort = mountd-port;
     exports = ''
-      /data/Share *(rw,async,no_subtree_check)
-      /data/Media *(rw,async,no_subtree_check)
-      /data/downloads *(rw,async,no_subtree_check)
+      /data/Share 10.0.0.0/24(rw,async,no_subtree_check)
+      /data/Media 10.0.0.0/24(rw,async,no_subtree_check)
+      /data/downloads 10.0.0.0/24(rw,async,no_subtree_check)
     '';
   };
 }

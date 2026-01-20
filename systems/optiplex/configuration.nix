@@ -89,14 +89,14 @@ in {
     '';
     firewall = {
       allowedTCPPorts = [
-        6969 # BioLink site
         3700
+        6969 # BioLink site
         8080
       ];
       allowedUDPPorts = [
-        51820 # WireGuard
-        6990
         3700
+        6990
+        51820 # WireGuard
       ];
     };
     hostId = "eca03077";
