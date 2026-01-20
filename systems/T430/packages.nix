@@ -54,6 +54,7 @@
     jdk21
     nfs-utils
     dig
+    nodejs
     agenix
     colmena
     ajax-deploy
