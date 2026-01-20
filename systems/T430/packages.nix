@@ -5,7 +5,6 @@
 
   programs.firefox.enable = true;
   programs.hyprland.enable = true;
-  programs.adb.enable = true;
 
   programs.steam = {
   enable = true;
@@ -20,6 +19,7 @@
     curl
     nano
     git
+    (discord.override { withVencord = true; })
     kitty
     alacritty
     bluetui

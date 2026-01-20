@@ -4,7 +4,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ethan = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "adbusers" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];

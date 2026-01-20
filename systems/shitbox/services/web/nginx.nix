@@ -103,13 +103,4 @@ in {
         proxyWebsockets = true;
     };
   };
-
-  services.nginx.virtualHosts."s.${config.BaseDomain}" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-        proxyPass = "http://10.0.0.152:3000";
-        proxyWebsockets = true;
-    };
-  };
 }

@@ -65,7 +65,6 @@ in
       pkgs.gedit
       pkgs.filezilla
       pkgs.vscode
-      pkgs.discord
       pkgs.fallout-ce
       pkgs.fallout2-ce
       pkgs.makemkv

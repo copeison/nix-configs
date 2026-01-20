@@ -88,7 +88,6 @@ in {
     firewall = {
       allowedTCPPorts = [
         6969 # BioLink site
-        3000 # Zipline
         3700
         8080
       ];
