@@ -2,8 +2,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
+    nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
   };
-  outputs = inputs@{ self, nixpkgs, agenix }:
+  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver }:
   let
     system = "x86_64-linux";
 
@@ -28,6 +29,7 @@
         };
         imports = [
           agenix.nixosModules.age
+          nixos-mailserver.nixosModule
           systems/optiplex/configuration.nix
           ./core.nix
         ];

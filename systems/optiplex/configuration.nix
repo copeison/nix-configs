@@ -19,6 +19,8 @@ in {
     services/web/biolink.nix
     services/web/nginx.nix
     services/web/zipline.nix
+    services/web/mail/mailserver.nix
+    services/web/mail/roundcube.nix
     services/vpn/wireguard.nix
     services/torrenting/flood.nix
     services/torrenting/rtorrent.nix
@@ -106,6 +108,10 @@ in {
   systemd.services = {
     rtorrent.serviceConfig = mkNamespace {};
     nginx.serviceConfig = mkNamespace {};
+    dovecot.serviceConfig = mkNamespace {};
+    postfix.serviceConfig = mkNamespace {};
+    postfix-setup.serviceConfig = mkNamespace {};
+    rspamd.serviceConfig = mkNamespace {};
   };
 
   security.acme = {

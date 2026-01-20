@@ -59,8 +59,14 @@
     };
     firewall = {
       allowedTCPPorts = [
+        25 # SMTP
         80 # HTTP
+        143 # IMAP
         443 # HTTPS
+        465 # SMTPS
+        587 # SMTP (with STARTTLS)
+        993 # IMAPS
+        995 # SPOP3
         3700 # Peer port
         5201 # iperf3
         9101 # Node Exporter

@@ -17,5 +17,11 @@
       owner = "root";
       group = "root";
     };
+
+    yutsu-r33-ca = {
+      file = ../../../secrets/yutsu-r33-ca.age;
+      owner = "nginx";
+      group = "nginx";
+    };
   };
 }
