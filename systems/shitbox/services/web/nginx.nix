@@ -103,4 +103,13 @@ in {
         proxyWebsockets = true;
     };
   };
+
+  services.nginx.virtualHosts."lidarr.${config.BaseDomain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.152:8686";
+        proxyWebsockets = true;
+    };
+  };
 }

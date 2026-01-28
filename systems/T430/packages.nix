@@ -19,7 +19,7 @@
     curl
     nano
     git
-    (discord.override { withVencord = true; })
+    (discord.override { withVencord = true; withOpenASAR = true; })
     kitty
     alacritty
     bluetui
@@ -55,6 +55,9 @@
     nfs-utils
     dig
     nodejs
+    smartmontools
+    android-tools
+    tmate
     agenix
     colmena
     ajax-deploy

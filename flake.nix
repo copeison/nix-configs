@@ -3,8 +3,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
     nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+    hytale-flake.url = "github:essegd/hytale-server-flake";
   };
-  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver }:
+  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver, hytale-flake }:
   let
     system = "x86_64-linux";
 
@@ -30,6 +31,7 @@
         imports = [
           agenix.nixosModules.age
           nixos-mailserver.nixosModule
+          hytale-flake.nixosModules.hytale-servers
           systems/optiplex/configuration.nix
           ./core.nix
         ];

@@ -28,9 +28,11 @@ in {
     services/media/prowlarr.nix
     services/media/radarr.nix
     services/media/sonarr.nix
+    services/media/lidarr.nix
     services/fileshare/nfs.nix
     services/fileshare/samba.nix
     services/local/pihole.nix
+    services/games/hytale.nix
   ];
 
     environment.etc."netns-resolv.conf".text = ''
@@ -112,6 +114,7 @@ in {
     postfix.serviceConfig = mkNamespace {};
     postfix-setup.serviceConfig = mkNamespace {};
     rspamd.serviceConfig = mkNamespace {};
+    hytale-server-jake.serviceConfig = mkNamespace {};
   };
 
   security.acme = {
