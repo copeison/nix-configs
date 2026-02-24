@@ -13,5 +13,11 @@
       owner = "root";
       group = "root";
     };
+
+    wireguard-ps3 = {
+      file = ../../secrets/wireguard-ps3.age;
+      owner = "root";
+      group = "root";
+    };
   };
 }

@@ -58,6 +58,9 @@
     smartmontools
     android-tools
     tmate
+    ventoy-full-qt
+    python315
+    inetutils
     agenix
     colmena
     ajax-deploy
@@ -66,6 +69,10 @@
     spotatui
     patreon-dl-gui
     fanbox-dl
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "ventoy-qt5-1.1.10"
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];

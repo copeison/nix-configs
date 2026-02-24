@@ -19,6 +19,7 @@
       ./nfsmounts.nix
       ./agenix.nix
       ./dnsmasq.nix
+      #./wireguard.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

@@ -43,6 +43,7 @@ in {
     options edns0
   '';
 
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     biolink
     btop
@@ -58,6 +59,7 @@ in {
     ndisc6
     net-tools
     openssl
+    pciutils
     python315
     screen
     tcpdump

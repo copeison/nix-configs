@@ -47,6 +47,17 @@
           ./core.nix
         ];
       };
+      mediacenter = {
+        deployment = {
+          targetHost = "10.0.0.75";
+          targetUser = "root";
+        };
+        imports = [
+          agenix.nixosModules.age
+          systems/mediacenter/configuration.nix
+          ./core.nix
+        ];
+      };
       shittyvps = {
         deployment = {
           targetHost = "74.208.73.245";

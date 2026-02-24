@@ -3,28 +3,11 @@
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
     services/system/openssh.nix
-    services/web/nginx.nix
-    services/local/nginx.nix
     ./boot.nix
   ];
 
   environment.systemPackages = with pkgs; [
     btop
-    conntrack-tools
-    dig
-    fastfetch
-    gdb
-    git
-    inetutils
-    iperf
-    minica
-    ncdu
-    ndisc6
-    net-tools
-    openssl
-    screen
-    tcpdump
-    wget
   ];
 
   hardware.cpu.intel.updateMicrocode = true;
@@ -44,18 +27,11 @@
   networking = {
     firewall = {
       allowedTCPPorts = [
-        80 # HTTP
-        443 # HTTPS
       ];
     };
     hostId = "eca03077";
-    hostName = "shitbox";
+    hostName = "3040";
     useDHCP = true;
     usePredictableInterfaceNames = false;
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "unisonsolos@gmail.com";
   };
 }
