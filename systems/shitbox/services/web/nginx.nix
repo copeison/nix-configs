@@ -112,4 +112,13 @@ in {
         proxyWebsockets = true;
     };
   };
+
+  services.nginx.virtualHosts."git.${config.BaseDomain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.152:3900";
+        proxyWebsockets = true;
+    };
+  };
 }

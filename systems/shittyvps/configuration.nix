@@ -69,6 +69,7 @@
         995 # SPOP3
         3700 # Peer port
         5201 # iperf3
+        8080 #lceserver
         9101 # Node Exporter
       ];
       allowedUDPPorts = [

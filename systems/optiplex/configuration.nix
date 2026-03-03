@@ -33,6 +33,7 @@ in {
     services/fileshare/samba.nix
     services/local/pihole.nix
     services/games/hytale.nix
+    #services/lceserver/default.nix
   ];
 
     environment.etc."netns-resolv.conf".text = ''
@@ -94,8 +95,9 @@ in {
     firewall = {
       allowedTCPPorts = [
         3700
+        3900 # forgejo
         6969 # BioLink site
-        8080
+        8080 # lce server
       ];
       allowedUDPPorts = [
         3700
@@ -110,6 +112,15 @@ in {
   };
 
   systemd.services = {
+    postfix = {
+      after = [ "wireguard-wg0.service" ];
+      requires = [ "wireguard-wg0.service" ];
+    };
+    postfix-setup = {
+      after = [ "wireguard-wg0.service" ];
+      requires = [ "wireguard-wg0.service" ];
+    };
+
     rtorrent.serviceConfig = mkNamespace {};
     nginx.serviceConfig = mkNamespace {};
     dovecot.serviceConfig = mkNamespace {};
