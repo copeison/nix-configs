@@ -7,9 +7,9 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      #./hardware-configuration.nix
+      ./hardware-configuration.nix
       home-manager/home.nix
-      #../../pkgs/overlays.nix
+      ../../pkgs/overlays.nix
       ./nix-settings.nix
       ./services.nix
       ./networking.nix
@@ -17,7 +17,7 @@
       ./users.nix
       ./env.nix
       ./nfsmounts.nix
-      #./agenix.nix
+      ./agenix.nix
       #./dnsmasq.nix
       #./wireguard.nix
     ];

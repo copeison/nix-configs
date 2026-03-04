@@ -60,14 +60,14 @@
     tmate
     python315
     inetutils
-    #agenix
-    #colmena
+    agenix
+    colmena
     #ajax-deploy
     #osu-stable
     #osu-gatari
-    #spotatui
-    #patreon-dl-gui
-    #fanbox-dl
+    spotatui
+    patreon-dl-gui
+    fanbox-dl
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];

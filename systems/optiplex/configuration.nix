@@ -33,7 +33,6 @@ in {
     services/fileshare/samba.nix
     services/local/pihole.nix
     services/games/hytale.nix
-    #services/lceserver/default.nix
   ];
 
     environment.etc."netns-resolv.conf".text = ''
