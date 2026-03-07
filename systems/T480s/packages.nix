@@ -62,6 +62,8 @@
     nemo
     nemo-fileroller
     #kdePackages.dolphin
+    libreoffice-qt
+    hunspell
     libdrm
     intel-media-driver
     intel-vaapi-driver

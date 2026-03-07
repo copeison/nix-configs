@@ -49,4 +49,13 @@
         proxyWebsockets = true;
     };
   };
+
+  services.nginx.virtualHosts."pawjob.online" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://192.168.100.1:3000";
+        proxyWebsockets = true;
+    };
+  };
 }
