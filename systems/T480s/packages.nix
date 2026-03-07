@@ -25,8 +25,6 @@
     bluetui
     blueman
     rofi
-    kdePackages.dolphin
-    kdePackages.ark
     mpv
     vlc
     swww
@@ -60,6 +58,15 @@
     tmate
     python315
     inetutils
+    p4v
+    nemo
+    nemo-fileroller
+    #kdePackages.dolphin
+    libdrm
+    intel-media-driver
+    intel-vaapi-driver
+    libva-vdpau-driver
+    libvdpau-va-gl
     agenix
     colmena
     #ajax-deploy

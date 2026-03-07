@@ -48,6 +48,15 @@ in
       };
     };
 
+  dconf = {
+  enable = true;
+  settings = {
+      "org/cinnamon/desktop/applications/terminal" = {
+        exec = "alacritty";
+      };
+    };
+  };
+
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
@@ -69,6 +78,9 @@ in
       pkgs.fallout2-ce
       pkgs.makemkv
       pkgs.audacity
+      pkgs.zoom-us
+      pkgs.teams-for-linux
+      pkgs.qbittorrent
     ];
 
     nixpkgs.config.allowUnfree = true;
