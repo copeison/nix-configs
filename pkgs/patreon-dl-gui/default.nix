@@ -3,11 +3,13 @@
 , fetchurl
 , autoPatchelfHook
 , makeWrapper
+, dpkg
 , alsa-lib
 , bash
 , bubblewrap
 , coreutils
 , dbus
+, deno
 , fontconfig
 , freetype
 , glib
@@ -27,30 +29,33 @@
 , libxrandr ? xorg.libXrandr
 , libxrender ? xorg.libXrender
 , libxkbcommon
+, asar
 , mesa
 , nss
 , nspr
 , zlib }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "patreon-dl-gui";
-  version = "2.50.0";
+  version = "2.7.1";
 
   src = fetchurl rec {
-    name = "patreon-dl-gui.tar.gz";
-    url = "https://kursu.dev/cdn/patreon-dl-gui.tar.gz";
-    sha256 = "sha256-LfB3iCtOVdaFmYxYbEN0MYlhr94gvO+/KtZpyBOGg3I=";
+    url = "https://github.com/patrickkfkan/patreon-dl-gui/releases/download/v${finalAttrs.version}/patreon-dl-gui_${finalAttrs.version}_amd64.deb";
+    sha256 = "sha256-LtzrahP6HwfgeJWUj5XXsPcpIo2Oi3VzQur7nyLfrqk=";
   };
 
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
+    dpkg
+    asar
   ];
 
   buildInputs = [
     alsa-lib
     bash
     dbus
+    deno
     fontconfig
     freetype
     glib
@@ -76,34 +81,77 @@ stdenv.mkDerivation {
   ];
 
   unpackPhase = ''
-    tar -xvzf $src .
+    runHook preUnpack
+
+    mkdir unpacked
+    cd unpacked
+    dpkg-deb --fsys-tarfile "$src" | tar -xvf - \
+      --no-same-owner \
+      --no-same-permissions
+
+    runHook postUnpack
   '';
 
   installPhase = ''
-    mkdir -p $out/bin $out/lib $out/share
-    cp -r lib $out
-    cp -r share/doc share/pixmaps $out/share/
-    # Simlink the binary
-    ln -s $out/lib/patreon-dl-gui/patreon-dl-gui $out/bin/patreon-dl-gui
+    runHook preInstall
+
+    mkdir -p $out
+    cp -r usr/* $out/
+
+    if [ -d etc ]; then
+      mkdir -p $out/etc
+      cp -r etc/* $out/etc/
+    fi
+
+    if [ ! -e $out/bin/patreon-dl-gui ] && [ -e $out/lib/patreon-dl-gui/patreon-dl-gui ]; then
+      mkdir -p $out/bin
+      ln -s $out/lib/patreon-dl-gui/patreon-dl-gui $out/bin/patreon-dl-gui
+    fi
+
+    asarfile="$out/lib/patreon-dl-gui/resources/app.asar"
+    asardir="$TMPDIR/app.asar.unpack"
+
+    mkdir -p "$asardir"
+    asar extract "$asarfile" "$asardir"
+
+    appjs="$asardir/.vite/build/index.js"
+
+    substituteInPlace "$appjs" \
+      --replace '"/bin/sh"' '"${bash}/bin/bash"' \
+      --replace "'/bin/sh'" "'${bash}/bin/bash'" \
+      --replace '"sh"' '"bash"' \
+      --replace "'sh'" "'bash'"
+
+    rm -f "$asarfile"
+    asar pack "$asardir" "$asarfile"
 
     mkdir -p $out/share/applications
     cat > $out/share/applications/patreon-dl-gui.desktop <<EOF
-    [Desktop Entry]
-    Name=patreon-dl-gui
-    Comment=GUI for patreon-dl
-    Exec=$out/bin/patreon-dl-gui %U
-    Icon=patreon-dl-gui
-    Type=Application
-    StartupNotify=true
-    Categories=GNOME;GTK;Utility;
-    EOF
+[Desktop Entry]
+Name=patreon-dl-gui
+Comment=GUI for patreon-dl
+Exec=$out/bin/patreon-dl-gui %U
+Icon=patreon-dl-gui
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;
+EOF
+
+    runHook postInstall
   '';
 
   postFixup = ''
     wrapProgram $out/bin/patreon-dl-gui \
-      --prefix LD_LIBRARY_PATH : ${mesa}/lib:${libGL}/lib:${libdrm}/lib \
-      --set SHELL ${stdenv.shell}
+      --prefix PATH : ${lib.makeBinPath [ bash coreutils ]} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ mesa libGL libdrm ]} \
+      --set SHELL ${bash}/bin/bash
   '';
 
   dontBuild = true;
-}
+
+  meta = with lib; {
+    description = "GUI for patreon-dl";
+    platforms = [ "x86_64-linux" ];
+    mainProgram = "patreon-dl-gui";
+  };
+})

@@ -4,13 +4,7 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.firefox.enable = true;
-  programs.hyprland.enable = true;
-
-  programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true;
-  dedicatedServer.openFirewall = true;
-  };
+  programs.windowmaker.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -19,61 +13,20 @@
     curl
     nano
     git
-    (discord.override { withVencord = true; withOpenASAR = true; })
-    kitty
-    alacritty
-    bluetui
-    blueman
-    rofi
-    kdePackages.dolphin
-    kdePackages.ark
+    xterm
     mpv
     vlc
-    swww
-    waypaper
-    waybar
-    hypridle
-    hyprlock
-    hyprpolkitagent
-    mako
-    lxsession
     fastfetch
     xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
     xdg-user-dirs
-    jq
-    grim
-    slurp
-    wl-clipboard
-    pwvucontrol
     libarchive
     unrar
-    deno
     btop
     fontconfig
-    jdk21
     nfs-utils
-    dig
-    nodejs
-    smartmontools
-    android-tools
-    tmate
-    ventoy-full-qt
-    python315
-    inetutils
-    agenix
-    colmena
-    ajax-deploy
-    osu-stable
-    osu-gatari
-    spotatui
-    patreon-dl-gui
-    fanbox-dl
+    nemo
+    nemo-with-extensions
+    nemo-fileroller
+    file-roller
   ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "ventoy-qt5-1.1.10"
-  ];
-
-  fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];
 }

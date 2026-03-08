@@ -60,7 +60,9 @@
     inetutils
     p4v
     nemo
+    nemo-with-extensions
     nemo-fileroller
+    file-roller
     #kdePackages.dolphin
     libreoffice-qt
     hunspell
