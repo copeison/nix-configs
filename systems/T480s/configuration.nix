@@ -16,6 +16,7 @@
       ../../modules/shared/xdg.nix
       ../../modules/shared/gnupg.nix
       ../../modules/shared/services.nix
+      ../../modules/shared/kvm.nix
 
       ../../pkgs/overlays.nix
 

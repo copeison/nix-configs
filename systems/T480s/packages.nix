@@ -63,7 +63,7 @@
     nemo-with-extensions
     nemo-fileroller
     file-roller
-    #kdePackages.dolphin
+    kdePackages.dolphin
     libreoffice-qt
     hunspell
     libdrm
