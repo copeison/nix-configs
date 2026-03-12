@@ -12,10 +12,12 @@
       ../../modules/shared/nix-settings.nix
       ../../modules/shared/gnupg.nix
       ../../modules/shared/services.nix
+      ../../modules/shared/qt.nix
 
       ./hardware-configuration.nix
       modules/hardware.nix
       modules/boot.nix
+      modules/xdg.nix
       home-manager/home.nix
       ./services.nix
       ./packages.nix
