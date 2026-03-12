@@ -17,6 +17,7 @@
       ../../modules/shared/gnupg.nix
       ../../modules/shared/services.nix
       ../../modules/shared/kvm.nix
+      ../../modules/shared/git.nix
 
       ../../pkgs/overlays.nix
 

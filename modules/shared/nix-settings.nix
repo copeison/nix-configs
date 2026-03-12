@@ -23,14 +23,4 @@
       "hydra.fuckk.lol:6+mPv9GwAFx/9J+mIL0I41pU8k4HX0KiGi1LUHJf7LY="
     ];
   };
-  #
-  # Used for Git
-  #
-  # This allows flakes to pull in private repos, otherwise
-  # some hacky stuff is needed.
-  environment.etc."nix/netrc" = {
-    user = "ethan";
-    group = "root";
-    source = config.age.secrets.nix-netrc.path;
-  };
 }
