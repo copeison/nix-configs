@@ -1,21 +1,30 @@
 let
-  statd-port = 4000;
-  lockd-port = 4001;
-  mountd-port = 4002;
+  statdport = 4000;
+  lockdport = 4001;
+  mountdport = 4002;
 in {
-  networking.firewall.allowedTCPPorts = [
-    111 # NFS Portmapper
-    2049 # NFS Traffic
-    statd-port
-    lockd-port
-    mountd-port
+  networking.firewall = {
+  allowedTCPPorts = [
+    111
+    2049
+    statdport
+    lockdport
+    mountdport
   ];
+  allowedUDPPorts = [
+    111
+    2049
+    statdport
+    lockdport
+    mountdport
+  ];
+};
 
   services.nfs.server = {
     enable = true;
-    statdPort = statd-port;
-    lockdPort = lockd-port;
-    mountdPort = mountd-port;
+    statdPort = statdport;
+    lockdPort = lockdport;
+    mountdPort = mountdport;
     exports = ''
       /data/Share 10.0.0.0/24(rw,async,no_subtree_check)
       /data/Media 10.0.0.0/24(rw,async,no_subtree_check)

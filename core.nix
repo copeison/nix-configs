@@ -18,8 +18,15 @@ in {
         extraGroups = [ "wheel" ];
         openssh.authorizedKeys = { inherit keys; };
       };
+      unison = {
+        isNormalUser = true;
+        group = "unison";
+        extraGroups = [ "wheel" ];
+        openssh.authorizedKeys = { inherit keys; };
+      };
     };
     groups.server = {};
+    groups.unison = {};
   };
   system.stateVersion = "26.05";
 }
