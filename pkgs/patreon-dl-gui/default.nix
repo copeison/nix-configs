@@ -37,7 +37,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "patreon-dl-gui";
-  version = "2.7.1";
+  version = "2.8.0";
 
   src = fetchurl rec {
     url = "https://github.com/patrickkfkan/patreon-dl-gui/releases/download/v${finalAttrs.version}/patreon-dl-gui_${finalAttrs.version}_amd64.deb";
