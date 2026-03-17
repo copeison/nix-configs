@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl rec {
     url = "https://github.com/patrickkfkan/patreon-dl-gui/releases/download/v${finalAttrs.version}/patreon-dl-gui_${finalAttrs.version}_amd64.deb";
-    sha256 = "sha256-LtzrahP6HwfgeJWUj5XXsPcpIo2Oi3VzQur7nyLfrqk=";
+    sha256 = "sha256-TAWZwvfbE10j+4yObdFH9cP+5oOCMGiTaMyQ+lQMsgk=";
   };
 
   nativeBuildInputs = [

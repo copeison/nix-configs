@@ -1,6 +1,6 @@
 let
   ssh_keys = import ../ssh_keys_personal.nix;
-  T480s = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQwUD3mL7KyuHS23ZqF9txhboffERewfGDzYKQ8fplg";
+  T480s = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKvUp8g0WdjYRdBwjWPMagly2UYa0mZ2h+naR4ZSZeRm";
   r33-local = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICnauTgmSibFaafYvDNr5pZF9daFLVrl7cfsxZA5D+sQ";
   shittyvps = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG0fCV7QcBNz5iLh2rMtlyGoAAr8nrYC8P68TkhZtTyq";
   keys = ssh_keys ++ [
