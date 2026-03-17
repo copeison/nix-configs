@@ -76,7 +76,7 @@
     #ajax-deploy
     #osu-stable
     #osu-gatari
-    #spotatui
+    spotatui
     patreon-dl-gui
     fanbox-dl
   ];
