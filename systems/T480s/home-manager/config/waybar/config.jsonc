@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
   "mode": "dock",
-  "modules-left": ["tray", "hyprland/workspaces", "hyprland/submap"],
+  "modules-left": ["tray", "hyprland/workspaces", "custom/music", "hyprland/submap"],
   "modules-center":["wlr/taskbar"],
   "modules-right": ["pulseaudio", "backlight", "battery", "clock"],
   
@@ -84,5 +84,10 @@
     "tooltip-format": "{title}",
     "on-click": "minimize-raise",
     "on-click-right": "close"
+  },
+  "custom/music": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "waybar-module-music --marquee --title-width 10 --effect-speed 150",
   },
 }

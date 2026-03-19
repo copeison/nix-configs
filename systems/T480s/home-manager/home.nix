@@ -80,6 +80,7 @@ in
       pkgs.audacity
       #pkgs.zoom-us
       #pkgs.teams-for-linux
+      pkgs.slack
       pkgs.qbittorrent
     ];
 

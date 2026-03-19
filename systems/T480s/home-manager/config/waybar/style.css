@@ -178,3 +178,26 @@
   tooltip label {
     color: #ebdbb2;
   }
+
+  #custom-music {
+  padding: 0 10px;
+  margin: 0 5px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  border-radius: 25px;
+}
+
+#custom-music.playing {
+  color: #a6e3a1;
+  background: #303446;
+}
+
+#custom-music.paused {
+  color: #f9e2af;
+  background: #303446;
+}
+
+#custom-music.stopped {
+  color: #6c7086;
+  background: #303446;
+}

@@ -79,6 +79,7 @@
     spotatui
     patreon-dl-gui
     fanbox-dl
+    waybar-module-music
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];

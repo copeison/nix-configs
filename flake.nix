@@ -4,9 +4,8 @@
     agenix.url = "github:ryantm/agenix";
     nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     hytale-flake.url = "github:essegd/hytale-server-flake";
-    spotatui.url = "github:LargeModGames/spotatui";
   };
-  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver, hytale-flake, spotatui }:
+  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver, hytale-flake }:
   let
     system = "x86_64-linux";
 

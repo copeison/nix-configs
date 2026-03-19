@@ -3,6 +3,7 @@ let
   nixGamingPkgs = nixGaming.outputs.packages.x86_64-linux;
   agenixFlake = builtins.getFlake "github:ryantm/agenix";
   ajaxDeployFlake = builtins.getFlake "github:AjaxVPN/ajax-deploy";
+  waybar-module-music = builtins.getFlake "github:Andeskjerf/waybar-module-music";
 in {
   imports = [
     agenixFlake.nixosModules.age
@@ -18,6 +19,7 @@ in {
       };
       agenix = agenixFlake.outputs.packages.x86_64-linux.agenix;
       ajax-deploy = ajaxDeployFlake.outputs.packages.x86_64-linux.ajax-deploy;
+      waybar-module-music = waybar-module-music.outputs.packages.x86_64-linux.waybar-module-music;
       osu-stable = self.osu-base;
       osu-gatari = self.osu-base.override {
         desktopName = "osu!gatari";
