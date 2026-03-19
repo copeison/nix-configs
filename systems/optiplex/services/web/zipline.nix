@@ -58,13 +58,4 @@
         proxyWebsockets = true;
     };
   };
-
-  services.nginx.virtualHosts."cdn.ajaxnetworks.us" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-        proxyPass = "http://192.168.100.1:3000";
-        proxyWebsockets = true;
-    };
-  };
 }
