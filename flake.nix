@@ -69,6 +69,17 @@
           ./core.nix
         ];
       };
+      bcdn-nix = {
+        deployment = {
+          targetHost = "23.143.108.37";
+          targetUser = "root";
+        };
+        imports = [
+          agenix.nixosModules.age
+          systems/bcdn-nix/configuration.nix
+          ./core.nix
+        ];
+      };
     };
   };
 }

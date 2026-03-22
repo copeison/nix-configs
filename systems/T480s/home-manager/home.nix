@@ -78,9 +78,6 @@ in
       pkgs.fallout2-ce
       pkgs.makemkv
       pkgs.audacity
-      #pkgs.zoom-us
-      #pkgs.teams-for-linux
-      pkgs.slack
       pkgs.qbittorrent
     ];
 

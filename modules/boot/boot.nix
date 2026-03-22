@@ -12,6 +12,7 @@
       efiSupport = true;
       efiInstallAsRemovable = false;
       memtest86.enable = true;
+      useOSProber = true;
     };
     timeout = 10;
   };

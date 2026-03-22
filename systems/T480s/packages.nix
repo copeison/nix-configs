@@ -63,6 +63,7 @@
     nemo-with-extensions
     nemo-fileroller
     file-roller
+    udiskie
     kdePackages.dolphin
     libreoffice-qt
     hunspell
@@ -73,7 +74,6 @@
     libvdpau-va-gl
     agenix
     colmena
-    #ajax-deploy
     #osu-stable
     #osu-gatari
     spotatui
