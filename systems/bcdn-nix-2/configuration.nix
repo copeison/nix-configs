@@ -54,7 +54,7 @@
       ];
     };
     hostId = "eca03077";
-    hostName = "bcdn-nix";
+    hostName = "bcdn-nix-2";
     useDHCP = true;
     usePredictableInterfaceNames = false;
   };
