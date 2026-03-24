@@ -22,6 +22,9 @@
           "postmaster@r33.ca"
         ];
       };
+      "noreply@r33.ca" = {
+        hashedPasswordFile = config.age.secrets.noreply-r33-ca.path;
+      };
     };
     mailDirectory = "/var/vmail";
     openFirewall = true;

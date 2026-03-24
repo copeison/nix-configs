@@ -23,5 +23,11 @@
       owner = "nginx";
       group = "nginx";
     };
+
+    noreply-r33-ca = {
+      file = ../../../secrets/noreply-r33-ca.age;
+      owner = "nginx";
+      group = "nginx";
+    };
   };
 }
