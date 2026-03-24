@@ -95,6 +95,7 @@ in {
       allowedTCPPorts = [
         3700
         3900 # forgejo
+        4444 # degoog
         6969 # BioLink site
         8080 # lce server
       ];
