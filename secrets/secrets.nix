@@ -18,4 +18,5 @@ in {
   "wireguard.age".publicKeys = ssh_keys ++ [ r33-local ];
   "wireguard-ps3.age".publicKeys = ssh_keys;
   "wireguard-server.age".publicKeys = ssh_keys ++ [ shittyvps ];
+  "nv-bcdn1-wings-token.age".publicKeys = keys ++ [ bcdn-nix ];
 }

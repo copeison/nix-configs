@@ -4,8 +4,9 @@
     agenix.url = "github:ryantm/agenix";
     nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     hytale-flake.url = "github:essegd/hytale-server-flake";
+    pterodactyl-wings-nix.url = "github:BadCoder-Network/pterodactyl-wings-nix";
   };
-  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver, hytale-flake }:
+  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver, hytale-flake, pterodactyl-wings-nix }:
   let
     system = "x86_64-linux";
 
@@ -23,6 +24,7 @@
   in {
     colmena = {
       meta.nixpkgs = pkgs;
+      meta.specialArgs = { inherit inputs system; };
       optionsplex = {
         deployment = {
           targetHost = "10.0.0.152";
@@ -76,6 +78,7 @@
         };
         imports = [
           agenix.nixosModules.age
+          pterodactyl-wings-nix.nixosModules.default
           systems/bcdn-nix/configuration.nix
           ./core.nix
         ];
@@ -87,6 +90,7 @@
         };
         imports = [
           agenix.nixosModules.age
+          pterodactyl-wings-nix.nixosModules.default
           systems/bcdn-nix-2/configuration.nix
           ./core.nix
         ];

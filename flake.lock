@@ -282,12 +282,47 @@
         "type": "github"
       }
     },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1760103332,
+        "narHash": "sha256-BMsGVfKl4Q80Pr9T1AkCRljO1bpwCmY8rTBVj8XGuhA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "870493f9a8cb0b074ae5b411b2f232015db19a65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "pterodactyl-wings-nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1760205000,
+        "narHash": "sha256-558ekIKqQUnFnD8cixOdCyHi/vBGked2Tjk1v3Bo/Ao=",
+        "owner": "BadCoder-Network",
+        "repo": "pterodactyl-wings-nix",
+        "rev": "edb4016372b0eb5db883f261bfe7d64e4310cd33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BadCoder-Network",
+        "repo": "pterodactyl-wings-nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
         "hytale-flake": "hytale-flake",
         "nixos-mailserver": "nixos-mailserver",
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_5",
+        "pterodactyl-wings-nix": "pterodactyl-wings-nix"
       }
     },
     "systems": {

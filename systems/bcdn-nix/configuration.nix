@@ -3,6 +3,8 @@
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
     services/system/openssh.nix
+    services/web/nginx.nix
+    services/web/wings.nix
     modules/agenix.nix
     ./boot.nix
   ];
@@ -51,6 +53,23 @@
   networking = {
     firewall = {
       allowedTCPPorts = [
+        443
+        80
+        2022
+      ];
+
+      allowedUDPPortRanges = [
+        {
+          from = 25565;
+          to = 25565;
+        }
+      ];
+
+      allowedTCPPortRanges = [
+        {
+          from = 25565;
+          to = 25565;
+        }
       ];
     };
     hostId = "eca03077";
