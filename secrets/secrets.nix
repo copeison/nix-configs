@@ -5,8 +5,10 @@ let
   shittyvps = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG0fCV7QcBNz5iLh2rMtlyGoAAr8nrYC8P68TkhZtTyq";
   bcdn-nix =  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEq35IHi/KPh9ykPUyAHhyTGr/oIR9+T4oyWOkGX/tZ6";
   bcdn-nix-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDpr24zjWZweZGW4+AwQWoA+yuMatc76K5BVaGSb7Q8b";
+  rwf93 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGcWcrTasX029yZ9zxhlZSvnQ0cnF75kEIdZPijFkRO3";
   keys = ssh_keys ++ [
     T480s
+    rwf93
   ];
 
 in {
