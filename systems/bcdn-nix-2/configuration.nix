@@ -49,8 +49,26 @@
   };
 
   networking = {
+    enableIPv6  = false;
     firewall = {
       allowedTCPPorts = [
+        443
+        80
+        2022
+      ];
+
+      allowedUDPPortRanges = [
+        {
+          from = 25565;
+          to = 25565;
+        }
+      ];
+
+      allowedTCPPortRanges = [
+        {
+          from = 25565;
+          to = 25565;
+        }
       ];
     };
     hostId = "eca03077";
