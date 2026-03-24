@@ -21,6 +21,7 @@ in {
     services/web/zipline.nix
     services/web/mail/mailserver.nix
     services/web/mail/roundcube.nix
+    services/web/ptero-panel.nix
     services/vpn/wireguard.nix
     services/torrenting/flood.nix
     services/torrenting/rtorrent.nix
