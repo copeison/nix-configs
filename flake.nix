@@ -3,10 +3,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
     nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
-    hytale-flake.url = "github:essegd/hytale-server-flake";
     pterodactyl-wings-nix.url = "github:BadCoder-Network/pterodactyl-wings-nix";
   };
-  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver, hytale-flake, pterodactyl-wings-nix }:
+  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver, pterodactyl-wings-nix }:
   let
     system = "x86_64-linux";
 
@@ -33,7 +32,6 @@
         imports = [
           agenix.nixosModules.age
           nixos-mailserver.nixosModule
-          hytale-flake.nixosModules.hytale-servers
           systems/optiplex/configuration.nix
           ./core.nix
         ];
