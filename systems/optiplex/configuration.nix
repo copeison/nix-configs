@@ -96,12 +96,15 @@ in {
         3700
         3900 # forgejo
         4444 # degoog
+        6661 # wings
         6969 # BioLink site
-        8080 # lce server
+        25565 # minecraft
       ];
       allowedUDPPorts = [
         3700
+        6661 # wings
         6990
+        25565 # minecraft
         51820 # WireGuard
       ];
     };
