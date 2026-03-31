@@ -93,9 +93,11 @@ in {
     '';
     firewall = {
       allowedTCPPorts = [
+        2222 # forgejo ssh
         3700
         3900 # forgejo
         4444 # degoog
+        5690 # wizarr
         6661 # wings
         6969 # BioLink site
         25565 # minecraft
