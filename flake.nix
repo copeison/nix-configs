@@ -1,11 +1,12 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-latest.url = "github:NixOS/nixpkgs/265d204da2c6616afd5356c935779004b5625d7b";
     agenix.url = "github:ryantm/agenix";
     nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     pterodactyl-wings-nix.url = "github:BadCoder-Network/pterodactyl-wings-nix";
   };
-  outputs = inputs@{ self, nixpkgs, agenix, nixos-mailserver, pterodactyl-wings-nix }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-latest, agenix, nixos-mailserver, pterodactyl-wings-nix }:
   let
     system = "x86_64-linux";
 
@@ -13,8 +14,11 @@
       (self: super: {
         agenix = agenix.outputs.packages.x86_64-linux.agenix;
         biolink = self.callPackage pkgs/BioLink {};
+        sonarr = latestPkgs.sonarr;
       })
     ];
+
+    latestPkgs = import nixpkgs-latest { inherit system; };
 
     pkgs = import nixpkgs {
       inherit system;

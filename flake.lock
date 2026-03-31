@@ -181,6 +181,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-latest": {
+      "locked": {
+        "lastModified": 1774052566,
+        "narHash": "sha256-6966MIYqP/363jEQ6r4/GE9i8ruv0R3A4wf9b9HURu4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "265d204da2c6616afd5356c935779004b5625d7b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "265d204da2c6616afd5356c935779004b5625d7b",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1764374374,
@@ -252,6 +268,7 @@
         "agenix": "agenix",
         "nixos-mailserver": "nixos-mailserver",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-latest": "nixpkgs-latest",
         "pterodactyl-wings-nix": "pterodactyl-wings-nix"
       }
     },
