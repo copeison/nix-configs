@@ -29,5 +29,11 @@
       owner = "nginx";
       group = "nginx";
     };
+
+    zukameku-r33-ca = {
+      file = ../../../secrets/zukameku-r33-ca.age;
+      owner = "nginx";
+      group = "nginx";
+    };
   };
 }
