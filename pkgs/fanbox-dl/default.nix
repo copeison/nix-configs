@@ -5,7 +5,7 @@
 
 buildGoModule rec {
   pname = "fanbox-dl";
-  version = "0.28.1";
+  version = "0.28.3";
   rev = "v${version}";
 
   src = fetchFromGitHub {

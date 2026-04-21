@@ -32,8 +32,8 @@ in
     home.file.".config/hypr".recursive = true;
     home.file.".config/alacritty".source = ./config/alacritty;
     home.file.".config/alacritty".recursive = true;
-    home.file.".config/zsh/omz-custom".source = ./config/omz-custom;
-    home.file.".config/zsh/omz-custom".recursive = true;
+    home.file.".config/omz-custom".source = ./config/omz-custom;
+    home.file.".config/omz-custom".recursive = true;
 
   gtk = {
       enable = true;

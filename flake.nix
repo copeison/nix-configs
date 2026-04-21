@@ -53,7 +53,7 @@
       };
       mediacenter = {
         deployment = {
-          targetHost = "10.0.0.75";
+          targetHost = "10.0.0.98";
           targetUser = "root";
         };
         imports = [

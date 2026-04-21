@@ -75,6 +75,13 @@ in {
         "fd00:127::2/128"
       ];
       publicKey = "TKgxCskLTmOaZzdap10mrZMm/vCyyyj6AdAcRrtQdhI=";
+    }
+    {
+      allowedIPs = [
+        "10.127.0.3/32"
+        "fd00:127::3/128"
+      ];
+      publicKey = "zBh3DlLlIvyLFTqJ7OKXUP/4ROkU1Su5w8VPaCkNrnM=";
     }];
   };
 }

@@ -1,6 +1,8 @@
 #autoload
 
 _autocomplete__history_lines() {
+  setopt localoptions multibyte
+
   # Don't run more than once.
   (( _matcher_num > 1 )) &&
       return 1
@@ -121,7 +123,7 @@ _autocomplete__history_lines() {
       shift $pop $excess displays
 
   # To avoid wrapping, each completion should be one char less than terminal width.
-  displays=( ${(@r:COLUMNS-1:)displays} )
+  displays=( ${(@mr:COLUMNS-1:)displays} )
 
   local -Pa matches=()
   for index in "${(MS)displays[@]##<->}"; do
@@ -133,8 +135,8 @@ _autocomplete__history_lines() {
   fi
 
   local -Pa suf=( -S '' )
-  if [[ $WIDGETSTYLE == *-select* && $#matches[@] > 1 ]]; then
-    # Enable multi-select.
+  if [[ $WIDGETSTYLE == *-select* && $#matches[@] > 1 ]] &&
+      zstyle -T ":autocomplete:${curcontext}:history-lines" add-semicolon; then
     suf=( -S ';' -R _autocomplete__history_lines_suffix )
   fi
 
@@ -146,11 +148,17 @@ _autocomplete__history_lines() {
   builtin compadd "$suf[@]" -QU -ld displays "$expl[@]" -a matches
 }
 
-_autocomplete__history_lines_suffix() {
-  if [[ SUFFIX_ACTIVE -ne 0 && $WIDGET != history-search-backward ]]; then
-    LBUFFER="$LBUFFER[1,SUFFIX_START]"
-    RBUFFER="$RBUFFER[SUFFIX_END,-1]"
-  fi
-}
+if is-at-least 5.9; then
+  _autocomplete__history_lines_suffix() {
+    if [[ SUFFIX_ACTIVE -ne 0 && $WIDGET != history-search-backward ]]; then
+      LBUFFER="$LBUFFER[1,SUFFIX_START]"
+      RBUFFER="$RBUFFER[SUFFIX_END,-1]"
+    fi
+  }
+else
+  _autocomplete__history_lines_suffix() {
+    [[ $KEYS[-1] != $'\C-@' ]] && LBUFFER=$LBUFFER[1,-1-$1]
+  }
+fi
 
 _autocomplete__history_lines "$@"

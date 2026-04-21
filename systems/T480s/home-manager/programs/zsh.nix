@@ -5,7 +5,7 @@
       enable = true;
       plugins = ["git" "zsh-autosuggestions" "zsh-syntax-highlighting" "zsh-autocomplete"];
       theme = "sorin";
-      custom = "$HOME/.config/zsh/omz-custom";
+      custom = "/home/ethan/.config/omz-custom";
     };
       shellAliases = {
       rebuild = "sudo nixos-rebuild switch";

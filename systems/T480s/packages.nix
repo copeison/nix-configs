@@ -27,7 +27,7 @@
     rofi
     mpv
     vlc
-    swww
+    awww
     waypaper
     waybar
     hypridle
