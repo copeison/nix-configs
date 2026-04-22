@@ -1,0 +1,37 @@
+[
+  {
+    "pname": "Microsoft.Data.Sqlite",
+    "version": "8.0.8",
+    "hash": "sha256-eXnn+Hq0LNn+xQIixUNJ435NLarMKd89vMAvU2ApF1g="
+  },
+  {
+    "pname": "Microsoft.Data.Sqlite.Core",
+    "version": "8.0.8",
+    "hash": "sha256-5qV38l8ZeCZTE5f5+f5XFNzUCuTurqDti2qxobeYPXk="
+  },
+  {
+    "pname": "SQLitePCLRaw.bundle_e_sqlite3",
+    "version": "2.1.6",
+    "hash": "sha256-dZD/bZsYXjOu46ZH5Y/wgh0uhHOqIxC+S+0ecKhr718="
+  },
+  {
+    "pname": "SQLitePCLRaw.core",
+    "version": "2.1.6",
+    "hash": "sha256-RxWjm52PdmMV98dgDy0BCpF988+BssRZUgALLv7TH/E="
+  },
+  {
+    "pname": "SQLitePCLRaw.lib.e_sqlite3",
+    "version": "2.1.6",
+    "hash": "sha256-uHt5d+SFUkSd6WD7Tg0J3e8eVoxy/FM/t4PAkc9PJT0="
+  },
+  {
+    "pname": "SQLitePCLRaw.provider.e_sqlite3",
+    "version": "2.1.6",
+    "hash": "sha256-zHc/YZsd72eXlI8ba1tv58HZWUIiyjJaxq2CCP1hQe8="
+  },
+  {
+    "pname": "System.Memory",
+    "version": "4.5.3",
+    "hash": "sha256-Cvl7RbRbRu9qKzeRBWjavUkseT2jhZBUWV1SPipUWFk="
+  }
+]

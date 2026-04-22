@@ -2,7 +2,6 @@ let
   nixGaming = builtins.getFlake "github:fufexan/nix-gaming";
   nixGamingPkgs = nixGaming.outputs.packages.x86_64-linux;
   agenixFlake = builtins.getFlake "github:ryantm/agenix";
-  ajaxDeployFlake = builtins.getFlake "github:AjaxVPN/ajax-deploy";
   waybar-module-music = builtins.getFlake "github:Andeskjerf/waybar-module-music";
 in {
   imports = [
@@ -18,7 +17,6 @@ in {
         proton-osu-bin = nixGamingPkgs.proton-osu-bin;
       };
       agenix = agenixFlake.outputs.packages.x86_64-linux.agenix;
-      ajax-deploy = ajaxDeployFlake.outputs.packages.x86_64-linux.ajax-deploy;
       waybar-module-music = waybar-module-music.outputs.packages.x86_64-linux.waybar-module-music;
       osu-stable = self.osu-base;
       osu-gatari = self.osu-base.override {

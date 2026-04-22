@@ -72,6 +72,7 @@
     intel-vaapi-driver
     libva-vdpau-driver
     libvdpau-va-gl
+    dotnet-sdk_10
     agenix
     colmena
     #osu-stable

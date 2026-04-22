@@ -14,6 +14,7 @@
       (self: super: {
         agenix = agenix.outputs.packages.x86_64-linux.agenix;
         biolink = self.callPackage pkgs/BioLink {};
+        patreon-dl-server = self.callPackage pkgs/patreon-dl-server {};
         sonarr = latestPkgs.sonarr;
       })
     ];

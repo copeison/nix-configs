@@ -139,4 +139,13 @@ in {
         proxyWebsockets = true;
     };
   };
+
+  services.nginx.virtualHosts."thefunny.${config.BaseDomain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.152:5000";
+        proxyWebsockets = true;
+    };
+  };
 }
