@@ -82,19 +82,21 @@ public sealed class PatreonRepository
         command.Parameters.AddWithValue("$limit", limit);
         command.Parameters.AddWithValue("$offset", offset);
 
-        var items = new List<JsonObject>();
+        var rows = new List<CampaignRow>();
         using (var reader = command.ExecuteReader())
         {
             while (reader.Read())
             {
-                var campaign = JsonNodeExtensions.ParseObject(reader.GetString(0));
-                campaign["postCount"] = reader.GetInt32(1);
-                campaign["productCount"] = reader.GetInt32(2);
-                campaign["mediaCount"] = reader.GetInt32(3);
-                campaign["collectionCount"] = reader.GetInt32(4);
-                items.Add(campaign);
+                rows.Add(new CampaignRow(
+                    reader.GetString(0),
+                    reader.GetInt32(1),
+                    reader.GetInt32(2),
+                    reader.GetInt32(3),
+                    reader.GetInt32(4)));
             }
         }
+
+        var items = ParseCampaignRows(rows);
 
         var total = ExecuteScalar<int>(connection, "SELECT COUNT(*) FROM campaign;");
         return new ListResult<JsonObject> { Items = items, Total = total };
@@ -242,14 +244,19 @@ public sealed class PatreonRepository
             command.Parameters.AddWithValue("$search", search);
         }
 
-        var items = new List<JsonObject>();
+        var rows = new List<ContentRow>();
         using (var reader = command.ExecuteReader())
         {
             while (reader.Read())
             {
-                items.Add(ParseContent(reader));
+                rows.Add(new ContentRow(
+                    reader.GetString(0),
+                    reader.IsDBNull(1) ? 0 : Convert.ToInt32(reader.GetValue(1)),
+                    reader.IsDBNull(2) ? null : reader.GetString(2)));
             }
         }
+
+        var items = ParseContentRows(rows);
 
         using var totalCommand = connection.CreateCommand();
         totalCommand.CommandText = $"""
@@ -330,14 +337,19 @@ public sealed class PatreonRepository
         command.Parameters.AddWithValue("$limit", limit);
         command.Parameters.AddWithValue("$offset", offset);
 
-        var items = new List<JsonObject>();
+        var rows = new List<ContentRow>();
         using (var reader = command.ExecuteReader())
         {
             while (reader.Read())
             {
-                items.Add(ParseContent(reader));
+                rows.Add(new ContentRow(
+                    reader.GetString(0),
+                    reader.IsDBNull(1) ? 0 : Convert.ToInt32(reader.GetValue(1)),
+                    reader.IsDBNull(2) ? null : reader.GetString(2)));
             }
         }
+
+        var items = ParseContentRows(rows);
 
         using var totalCommand = connection.CreateCommand();
         totalCommand.CommandText = """
@@ -401,16 +413,16 @@ public sealed class PatreonRepository
             command.Parameters.AddWithValue("$search", search);
         }
 
-        var items = new List<JsonObject>();
+        var rows = new List<CollectionRow>();
         using (var reader = command.ExecuteReader())
         {
             while (reader.Read())
             {
-                var collection = JsonNodeExtensions.ParseObject(reader.GetString(0));
-                collection["numPosts"] = reader.GetInt32(1);
-                items.Add(collection);
+                rows.Add(new CollectionRow(reader.GetString(0), reader.GetInt32(1)));
             }
         }
+
+        var items = ParseCollectionRows(rows);
 
         using var totalCommand = connection.CreateCommand();
         totalCommand.CommandText = $"""
@@ -436,22 +448,31 @@ public sealed class PatreonRepository
             """;
         command.Parameters.AddWithValue("$campaignId", campaignId);
 
-        var items = new List<JsonObject>();
+        var rows = new List<string>();
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
-            items.Add(JsonNodeExtensions.ParseObject(reader.GetString(0)));
+            rows.Add(reader.GetString(0));
         }
 
+        var items = ParseJsonObjects(rows);
         return new ListResult<JsonObject> { Items = items, Total = items.Count };
     }
 
     public string? ResolveMediaPath(string id, bool thumbnail)
     {
+        return GetMediaFileInfo(id, thumbnail)?.Path;
+    }
+
+    public MediaFileInfo? GetMediaFileInfo(string id, bool thumbnail)
+    {
         using var connection = OpenConnection();
         using var command = connection.CreateCommand();
         command.CommandText = """
             SELECT
+              media_id,
+              mime_type,
+              thumbnail_mime_type,
               download_path,
               thumbnail_download_path
             FROM media
@@ -465,16 +486,23 @@ public sealed class PatreonRepository
             return null;
         }
 
-        var relativePath = thumbnail && !reader.IsDBNull(1)
-            ? reader.GetString(1)
-            : reader.IsDBNull(0) ? null : reader.GetString(0);
+        var contentType = thumbnail && !reader.IsDBNull(2)
+            ? reader.GetString(2)
+            : reader.IsDBNull(1) ? null : reader.GetString(1);
+
+        var relativePath = thumbnail && !reader.IsDBNull(4)
+            ? reader.GetString(4)
+            : reader.IsDBNull(3) ? null : reader.GetString(3);
 
         if (string.IsNullOrWhiteSpace(relativePath))
         {
             return null;
         }
 
-        return Path.GetFullPath(Path.Combine(DataDirectory, relativePath));
+        return new MediaFileInfo(
+            reader.GetString(0),
+            Path.GetFullPath(Path.Combine(DataDirectory, relativePath)),
+            contentType);
     }
 
     private JsonObject? GetSingleContent(string id, string contentType)
@@ -491,17 +519,22 @@ public sealed class PatreonRepository
         command.Parameters.AddWithValue("$contentType", contentType);
 
         using var reader = command.ExecuteReader();
-        return reader.Read() ? ParseContent(reader) : null;
+        return reader.Read()
+            ? ParseContent(new ContentRow(
+                reader.GetString(0),
+                reader.IsDBNull(1) ? 0 : Convert.ToInt32(reader.GetValue(1)),
+                reader.IsDBNull(2) ? null : reader.GetString(2)))
+            : null;
     }
 
-    private JsonObject ParseContent(SqliteDataReader reader)
+    private JsonObject ParseContent(ContentRow row)
     {
-        var details = JsonNodeExtensions.ParseObject(reader.GetString(0));
+        var details = JsonNodeExtensions.ParseObject(row.Details);
         var type = details["type"]?.GetValue<string>();
         if (type == "post")
         {
-            details["commentCount"] = reader.IsDBNull(1) ? 0 : Convert.ToInt32(reader.GetValue(1));
-            details["comments"] = reader.IsDBNull(2) ? null : JsonNode.Parse(reader.GetString(2));
+            details["commentCount"] = row.CommentCount;
+            details["comments"] = row.CommentsJson is null ? null : JsonNode.Parse(row.CommentsJson);
 
             var content = details["content"]?.GetValue<string>();
             if (!string.IsNullOrWhiteSpace(content))
@@ -511,6 +544,79 @@ public sealed class PatreonRepository
         }
 
         return details;
+    }
+
+    private List<JsonObject> ParseCampaignRows(IReadOnlyList<CampaignRow> rows)
+    {
+        if (rows.Count == 0)
+        {
+            return [];
+        }
+
+        var parsed = new JsonObject[rows.Count];
+        Parallel.For(0, rows.Count, index =>
+        {
+            var row = rows[index];
+            var campaign = JsonNodeExtensions.ParseObject(row.Details);
+            campaign["postCount"] = row.PostCount;
+            campaign["productCount"] = row.ProductCount;
+            campaign["mediaCount"] = row.MediaCount;
+            campaign["collectionCount"] = row.CollectionCount;
+            parsed[index] = campaign;
+        });
+
+        return [.. parsed];
+    }
+
+    private List<JsonObject> ParseContentRows(IReadOnlyList<ContentRow> rows)
+    {
+        if (rows.Count == 0)
+        {
+            return [];
+        }
+
+        var parsed = new JsonObject[rows.Count];
+        Parallel.For(0, rows.Count, index =>
+        {
+            parsed[index] = ParseContent(rows[index]);
+        });
+
+        return [.. parsed];
+    }
+
+    private List<JsonObject> ParseCollectionRows(IReadOnlyList<CollectionRow> rows)
+    {
+        if (rows.Count == 0)
+        {
+            return [];
+        }
+
+        var parsed = new JsonObject[rows.Count];
+        Parallel.For(0, rows.Count, index =>
+        {
+            var row = rows[index];
+            var collection = JsonNodeExtensions.ParseObject(row.Details);
+            collection["numPosts"] = row.PostCount;
+            parsed[index] = collection;
+        });
+
+        return [.. parsed];
+    }
+
+    private List<JsonObject> ParseJsonObjects(IReadOnlyList<string> rows)
+    {
+        if (rows.Count == 0)
+        {
+            return [];
+        }
+
+        var parsed = new JsonObject[rows.Count];
+        Parallel.For(0, rows.Count, index =>
+        {
+            parsed[index] = JsonNodeExtensions.ParseObject(rows[index]);
+        });
+
+        return [.. parsed];
     }
 
     private static void CloneParameters(SqliteCommand source, SqliteCommand target, params string[] names)
@@ -564,4 +670,10 @@ public sealed class PatreonRepository
         connection.Open();
         return connection;
     }
+
+    private sealed record CampaignRow(string Details, int PostCount, int ProductCount, int MediaCount, int CollectionCount);
+    private sealed record ContentRow(string Details, int CommentCount, string? CommentsJson);
+    private sealed record CollectionRow(string Details, int PostCount);
+
+    public sealed record MediaFileInfo(string Id, string Path, string? ContentType);
 }

@@ -404,15 +404,18 @@ app.MapGet("/media/{id}", (string id, HttpRequest request, PatreonRepository rep
 {
     var thumbnail = !string.IsNullOrWhiteSpace(request.Query["t"].FirstOrDefault());
     var download = !string.IsNullOrWhiteSpace(request.Query["dl"].FirstOrDefault());
-    var filePath = repository.ResolveMediaPath(id, thumbnail);
-    if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+    var requestedName = request.Query["name"].FirstOrDefault();
+    var fileInfo = repository.GetMediaFileInfo(id, thumbnail);
+    if (fileInfo is null || string.IsNullOrWhiteSpace(fileInfo.Path) || !File.Exists(fileInfo.Path))
     {
         return Results.NotFound();
     }
 
+    var downloadName = NormalizeDownloadName(requestedName, fileInfo.Path);
+
     return download
-        ? Results.File(filePath, fileDownloadName: Path.GetFileName(filePath), enableRangeProcessing: true)
-        : Results.File(filePath, enableRangeProcessing: true);
+        ? Results.File(fileInfo.Path, fileInfo.ContentType, fileDownloadName: downloadName, enableRangeProcessing: true)
+        : Results.File(fileInfo.Path, fileInfo.ContentType, enableRangeProcessing: true);
 });
 
 app.MapGet("/", () => Results.Content(InternalSite.IndexHtml, "text/html; charset=utf-8"));
@@ -465,6 +468,32 @@ static void SetAuthCookie(HttpResponse response, string token, bool secure)
         Path = "/",
         Expires = DateTimeOffset.UtcNow.AddDays(30)
     });
+}
+
+static string NormalizeDownloadName(string? requestedName, string filePath)
+{
+    var fallback = Path.GetFileName(filePath);
+    if (string.IsNullOrWhiteSpace(requestedName))
+    {
+        return fallback;
+    }
+
+    var cleaned = Path.GetFileName(requestedName.Trim());
+    if (string.IsNullOrWhiteSpace(cleaned))
+    {
+        return fallback;
+    }
+
+    if (string.IsNullOrWhiteSpace(Path.GetExtension(cleaned)))
+    {
+        var extension = Path.GetExtension(filePath);
+        if (!string.IsNullOrWhiteSpace(extension))
+        {
+            cleaned += extension;
+        }
+    }
+
+    return cleaned;
 }
 
 static bool RequiresAuthentication(PathString path)

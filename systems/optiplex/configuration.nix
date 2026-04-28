@@ -92,6 +92,7 @@ in {
       10.0.0.172 jellyfin.localnet ${config.networking.hostName}
       10.0.0.172 kvm.localnet ${config.networking.hostName}
       10.0.0.172 pihole.localnet ${config.networking.hostName}
+      10.0.0.172 downloader.localnet ${config.networking.hostName}
     '';
     firewall = {
       allowedTCPPorts = [
@@ -103,6 +104,7 @@ in {
         5690 # wizarr
         6661 # wings
         6969 # BioLink site
+        8081 # downloader website
         25565 # minecraft
       ];
       allowedUDPPorts = [

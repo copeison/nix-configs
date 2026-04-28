@@ -2549,7 +2549,7 @@ public static class InternalSite
 
         if (Array.isArray(post.attachments)) {
           for (const attachment of post.attachments) {
-            if (attachment?.id && attachment?.mimeType?.startsWith("image/")) {
+            if (attachment?.id && isDisplayableImageAttachment(attachment)) {
               candidates.push({ kind: "Attachment", src: `/media/${attachment.id}`, previewSrc: `/media/${attachment.id}`, title, type: "image" });
             }
           }
@@ -2706,7 +2706,7 @@ public static class InternalSite
     function getPostContentTypes(post) {
       const types = new Set();
 
-      if ((post.images || []).length || (post.attachments || []).some((attachment) => getAttachmentMimeType(attachment).startsWith("image/"))) {
+      if ((post.images || []).length || (post.attachments || []).some((attachment) => isDisplayableImageAttachment(attachment))) {
         types.add("images");
       }
 
@@ -2744,7 +2744,7 @@ public static class InternalSite
       const mimeType = getAttachmentMimeType(attachment);
       const name = getAttachmentName(attachment).toLowerCase();
 
-      if (mimeType.startsWith("image/")) {
+      if (isDisplayableImageAttachment(attachment)) {
         return "images";
       }
 
@@ -2782,10 +2782,36 @@ public static class InternalSite
       return attachment.id ? "other" : "";
     }
 
+    function isDisplayableImageAttachment(attachment) {
+      const mimeType = getAttachmentMimeType(attachment);
+      const name = getAttachmentName(attachment).toLowerCase();
+
+      if (!mimeType.startsWith("image/")) {
+        return false;
+      }
+
+      if (/\.(psd|psb|xcf|kra|clip|afphoto|pdn)$/i.test(name)) {
+        return false;
+      }
+
+      if (
+        mimeType.includes("photoshop") ||
+        mimeType.includes("x-xcf") ||
+        mimeType.includes("krita") ||
+        mimeType.includes("clip-studio") ||
+        mimeType.includes("paint.net")
+      ) {
+        return false;
+      }
+
+      return true;
+    }
+
     function getAttachmentMimeType(attachment) {
       return String(
         attachment?.mimeType ||
         attachment?.mimetype ||
+        attachment?.mime_type ||
         attachment?.contentType ||
         attachment?.content_type ||
         ""
@@ -2796,6 +2822,7 @@ public static class InternalSite
       return String(
         attachment?.name ||
         attachment?.fileName ||
+        attachment?.file_name ||
         attachment?.filename ||
         attachment?.downloadName ||
         ""
@@ -2874,8 +2901,9 @@ public static class InternalSite
         items.push({
           id: asset.id,
           label,
-          src: `/media/${asset.id}${thumbnail ? "?t=1" : ""}`,
-          previewSrc: `/media/${asset.id}${thumbnail ? "?t=1" : ""}`,
+          src: buildMediaUrl(asset.id, { thumbnail }),
+          previewSrc: buildMediaUrl(asset.id, { thumbnail }),
+          downloadSrc: buildMediaUrl(asset.id, { download: true, name: label }),
           type: "image"
         });
       };
@@ -2885,7 +2913,7 @@ public static class InternalSite
       }
 
       for (const attachment of post.attachments || []) {
-        if (attachment?.id && attachment?.mimeType?.startsWith("image/")) {
+        if (attachment?.id && isDisplayableImageAttachment(attachment)) {
           pushAsset(attachment, attachment.name || attachment.fileName || "Image attachment");
         }
       }
@@ -2909,15 +2937,17 @@ public static class InternalSite
         }
 
         seen.add(candidate.asset.id);
+        const label = candidate.asset.name || candidate.asset.fileName || candidate.label;
         items.push({
           id: candidate.asset.id,
-          label: candidate.asset.name || candidate.asset.fileName || candidate.label,
-          src: `/media/${candidate.asset.id}`,
+          label,
+          src: buildMediaUrl(candidate.asset.id),
           previewSrc: candidate.type === "video" && post.videoPreview?.id
-            ? `/media/${post.videoPreview.id}`
+            ? buildMediaUrl(post.videoPreview.id)
             : candidate.type === "audio" && post.audioPreview?.id
-              ? `/media/${post.audioPreview.id}`
-              : `/media/${candidate.asset.id}`,
+              ? buildMediaUrl(post.audioPreview.id)
+              : buildMediaUrl(candidate.asset.id),
+          downloadSrc: buildMediaUrl(candidate.asset.id, { download: true, name: label }),
           type: candidate.type
         });
       }
@@ -2930,16 +2960,18 @@ public static class InternalSite
       const seen = new Set();
 
       for (const attachment of post.attachments || []) {
-        if (!attachment?.id || seen.has(attachment.id) || attachment?.mimeType?.startsWith("image/")) {
+        if (!attachment?.id || seen.has(attachment.id) || isDisplayableImageAttachment(attachment)) {
           continue;
         }
 
         seen.add(attachment.id);
+        const name = getAttachmentName(attachment) || `Attachment ${attachment.id}`;
+        const mimeType = getAttachmentMimeType(attachment) || "Unknown type";
         items.push({
           id: attachment.id,
-          name: attachment.name || attachment.fileName || `Attachment ${attachment.id}`,
-          mimeType: attachment.mimeType || "Unknown type",
-          href: `/media/${attachment.id}`
+          name,
+          mimeType,
+          href: buildMediaUrl(attachment.id, { download: true, name })
         });
       }
 
@@ -3132,6 +3164,21 @@ public static class InternalSite
 
     function appendDownloadFlag(url) {
       return url.includes("?") ? `${url}&dl=1` : `${url}?dl=1`;
+    }
+
+    function buildMediaUrl(id, options = {}) {
+      const params = new URLSearchParams();
+      if (options.thumbnail) {
+        params.set("t", "1");
+      }
+      if (options.download) {
+        params.set("dl", "1");
+      }
+      if (options.name) {
+        params.set("name", options.name);
+      }
+      const query = params.toString();
+      return `/media/${encodeURIComponent(id)}${query ? `?${query}` : ""}`;
     }
 
     function getCollectionIconSrc(collection) {
