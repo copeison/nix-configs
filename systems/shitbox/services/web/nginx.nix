@@ -148,4 +148,13 @@ in {
         proxyWebsockets = true;
     };
   };
+
+  services.nginx.virtualHosts."vw.${config.BaseDomain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.152:7914";
+        proxyWebsockets = true;
+    };
+  };
 }

@@ -268,6 +268,21 @@ public sealed class AuthService
         }
     }
 
+    public void DeleteInvite(string token)
+    {
+        using var connection = OpenConnection();
+        using var command = connection.CreateCommand();
+        command.CommandText = """
+            DELETE FROM invites
+            WHERE token = $token;
+            """;
+        command.Parameters.AddWithValue("$token", token);
+        if (command.ExecuteNonQuery() == 0)
+        {
+            throw new InvalidOperationException("Invite was not found.");
+        }
+    }
+
     public IReadOnlyList<AuthAccount> GetUsers()
     {
         using var connection = OpenConnection();

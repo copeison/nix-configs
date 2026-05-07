@@ -30,7 +30,7 @@ in {
     services/media/prowlarr.nix
     services/media/radarr.nix
     services/media/sonarr.nix
-    services/media/lidarr.nix
+    #services/media/lidarr.nix
     services/fileshare/nfs.nix
     services/fileshare/samba.nix
     services/local/pihole.nix
@@ -104,6 +104,7 @@ in {
         5690 # wizarr
         6661 # wings
         6969 # BioLink site
+        7914 # vaultwarden
         8081 # downloader website
         25565 # minecraft
       ];

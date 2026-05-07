@@ -73,6 +73,8 @@
     libva-vdpau-driver
     libvdpau-va-gl
     dotnet-sdk_10
+    kodi
+    jellyfin-media-player
     agenix
     colmena
     #osu-stable

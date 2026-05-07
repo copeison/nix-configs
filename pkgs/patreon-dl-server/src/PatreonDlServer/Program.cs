@@ -273,6 +273,12 @@ app.MapDelete("/api/admin/invites/{token}", (string token, AuthService authServi
     return Results.Ok(new { revoked = true });
 });
 
+app.MapDelete("/api/admin/invites/{token}/hard", (string token, AuthService authService) =>
+{
+    authService.DeleteInvite(token);
+    return Results.Ok(new { deleted = true });
+});
+
 app.MapGet("/api/campaigns", (HttpRequest request, PatreonRepository repository) =>
 {
     try

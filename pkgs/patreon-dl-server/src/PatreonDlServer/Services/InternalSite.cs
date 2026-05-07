@@ -2542,7 +2542,16 @@ public static class InternalSite
         if (Array.isArray(post.images)) {
           for (const image of post.images) {
             if (image?.id) {
-              candidates.push({ kind: "Image", src: `/media/${image.id}`, previewSrc: `/media/${image.id}`, title, type: "image" });
+              const fileName = getMediaAssetName(image) || "Image";
+              candidates.push({
+                kind: "Image",
+                src: buildMediaUrl(image.id),
+                previewSrc: buildMediaUrl(image.id),
+                downloadSrc: buildMediaUrl(image.id, { download: true, name: fileName }),
+                title,
+                label: fileName,
+                type: "image"
+              });
             }
           }
         }
@@ -2550,27 +2559,39 @@ public static class InternalSite
         if (Array.isArray(post.attachments)) {
           for (const attachment of post.attachments) {
             if (attachment?.id && isDisplayableImageAttachment(attachment)) {
-              candidates.push({ kind: "Attachment", src: `/media/${attachment.id}`, previewSrc: `/media/${attachment.id}`, title, type: "image" });
+              const fileName = getMediaAssetName(attachment) || "Image attachment";
+              candidates.push({
+                kind: "Attachment",
+                src: buildMediaUrl(attachment.id),
+                previewSrc: buildMediaUrl(attachment.id),
+                downloadSrc: buildMediaUrl(attachment.id, { download: true, name: fileName }),
+                title,
+                label: fileName,
+                type: "image"
+              });
             }
           }
         }
 
         const singletons = [
-          { value: post.coverImage, kind: "Cover image", type: "image", previewSrc: (value) => `/media/${value.id}` },
-          { value: post.thumbnail, kind: "Thumbnail", type: "image", previewSrc: (value) => `/media/${value.id}` },
-          { value: post.videoPreview, kind: "Video preview", type: "video", previewSrc: (value) => `/media/${value.id}` },
-          { value: post.audioPreview, kind: "Audio preview", type: "audio", previewSrc: (value) => `/media/${value.id}` },
-          { value: post.video, kind: "Video", type: "video", previewSrc: (value) => post.videoPreview?.id ? `/media/${post.videoPreview.id}` : `/media/${value.id}` },
-          { value: post.audio, kind: "Audio", type: "audio", previewSrc: (value) => post.audioPreview?.id ? `/media/${post.audioPreview.id}` : `/media/${value.id}` }
+          { value: post.coverImage, kind: "Cover image", type: "image", previewSrc: (value) => buildMediaUrl(value.id) },
+          { value: post.thumbnail, kind: "Thumbnail", type: "image", previewSrc: (value) => buildMediaUrl(value.id) },
+          { value: post.videoPreview, kind: "Video preview", type: "video", previewSrc: (value) => buildMediaUrl(value.id) },
+          { value: post.audioPreview, kind: "Audio preview", type: "audio", previewSrc: (value) => buildMediaUrl(value.id) },
+          { value: post.video, kind: "Video", type: "video", previewSrc: (value) => post.videoPreview?.id ? buildMediaUrl(post.videoPreview.id) : buildMediaUrl(value.id) },
+          { value: post.audio, kind: "Audio", type: "audio", previewSrc: (value) => post.audioPreview?.id ? buildMediaUrl(post.audioPreview.id) : buildMediaUrl(value.id) }
         ];
 
         for (const entry of singletons) {
           if (entry.value?.id) {
+            const fileName = getMediaAssetName(entry.value) || entry.kind;
             candidates.push({
               kind: entry.kind,
-              src: `/media/${entry.value.id}`,
+              src: buildMediaUrl(entry.value.id),
               previewSrc: entry.previewSrc(entry.value),
+              downloadSrc: buildMediaUrl(entry.value.id, { download: true, name: fileName }),
               title,
+              label: fileName,
               type: entry.type
             });
           }
@@ -2829,6 +2850,17 @@ public static class InternalSite
       );
     }
 
+    function getMediaAssetName(asset) {
+      return String(
+        asset?.name ||
+        asset?.fileName ||
+        asset?.file_name ||
+        asset?.filename ||
+        asset?.downloadName ||
+        ""
+      );
+    }
+
     function comparePublishedValues(leftPost, rightPost) {
       const a = getComparableTimestamp(leftPost);
       const b = getComparableTimestamp(rightPost);
@@ -2909,12 +2941,12 @@ public static class InternalSite
       };
 
       for (const image of post.images || []) {
-        pushAsset(image, image.name || image.fileName || "Image");
+        pushAsset(image, getMediaAssetName(image) || "Image");
       }
 
       for (const attachment of post.attachments || []) {
         if (attachment?.id && isDisplayableImageAttachment(attachment)) {
-          pushAsset(attachment, attachment.name || attachment.fileName || "Image attachment");
+          pushAsset(attachment, getMediaAssetName(attachment) || "Image attachment");
         }
       }
 
@@ -2937,7 +2969,7 @@ public static class InternalSite
         }
 
         seen.add(candidate.asset.id);
-        const label = candidate.asset.name || candidate.asset.fileName || candidate.label;
+        const label = getMediaAssetName(candidate.asset) || candidate.label;
         items.push({
           id: candidate.asset.id,
           label,
@@ -3488,6 +3520,7 @@ public static class InternalSite
                     <input type="text" value="${escapeAttr(invite.inviteUrl)}" readonly>
                     <button type="button" class="secondary-button" data-copy-invite="${escapeAttr(invite.inviteUrl)}">Copy</button>
                     ${invite.isRevoked || invite.isUsed ? "" : `<button type="button" class="secondary-button" data-revoke-invite="${escapeAttr(invite.token)}">Revoke</button>`}
+                    <button type="button" class="secondary-button danger-button" data-delete-invite="${escapeAttr(invite.token)}">Delete</button>
                   </div>
                 </div>
               `).join("") : '<div class="empty-state">No invite links created yet.</div>'}
@@ -3570,6 +3603,21 @@ public static class InternalSite
           try {
             await fetch(`/api/admin/invites/${encodeURIComponent(token)}`, { method: "DELETE" }).then(assertOkJson);
             await renderAdminPage("Invite revoked.");
+          } catch (error) {
+            await renderAdminPage(error.message);
+          }
+        };
+      }
+
+      for (const button of detailsEl.querySelectorAll("[data-delete-invite]")) {
+        button.onclick = async () => {
+          const token = button.getAttribute("data-delete-invite");
+          if (!confirm("Delete this invite permanently?")) {
+            return;
+          }
+          try {
+            await fetch(`/api/admin/invites/${encodeURIComponent(token)}/hard`, { method: "DELETE" }).then(assertOkJson);
+            await renderAdminPage("Invite deleted.");
           } catch (error) {
             await renderAdminPage(error.message);
           }
