@@ -157,4 +157,13 @@ in {
         proxyWebsockets = true;
     };
   };
+
+  #services.nginx.virtualHosts."imgoingtobombthejews.${config.BaseDomain}" = {
+  #  enableACME = true;
+  #  forceSSL = true;
+  #  locations."/" = {
+  #      proxyPass = "http://10.0.0.152:8081";
+  #      proxyWebsockets = true;
+  #  };
+  #};
 }

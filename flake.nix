@@ -16,6 +16,9 @@
         biolink = self.callPackage pkgs/BioLink {};
         patreon-dl-server = self.callPackage pkgs/patreon-dl-server {};
         sonarr = latestPkgs.sonarr;
+        zipline = latestPkgs.zipline;
+        jellyfin = latestPkgs.jellyfin;
+        jellyfin-ffmpeg = latestPkgs.jellyfin-ffmpeg;
       })
     ];
 
