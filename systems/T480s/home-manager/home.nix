@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/master.tar.gz;
+  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz;
 in
 {
   imports =
@@ -20,16 +20,16 @@ in
     programs.bash.enable = true;
 
     # Add configs for programs
-    home.file.".config/waybar".source = ./config/waybar;
-    home.file.".config/waybar".recursive = true;
-    home.file.".config/rofi".source = ./config/rofi;
-    home.file.".config/rofi".recursive = true;
-    home.file.".local/share/rofi".source = ./themes/rofi;
-    home.file.".local/share/rofi".recursive = true;
-    home.file.".config/mako".source = ./config/mako;
-    home.file.".config/mako".recursive = true;
-    home.file.".config/hypr".source = ./config/hypr;
-    home.file.".config/hypr".recursive = true;
+    #home.file.".config/waybar".source = ./config/waybar;
+    #home.file.".config/waybar".recursive = true;
+    #home.file.".config/rofi".source = ./config/rofi;
+    #home.file.".config/rofi".recursive = true;
+    #home.file.".local/share/rofi".source = ./themes/rofi;
+    #home.file.".local/share/rofi".recursive = true;
+    #home.file.".config/mako".source = ./config/mako;
+    #home.file.".config/mako".recursive = true;
+    #home.file.".config/hypr".source = ./config/hypr;
+    #home.file.".config/hypr".recursive = true;
     home.file.".config/alacritty".source = ./config/alacritty;
     home.file.".config/alacritty".recursive = true;
     home.file.".config/omz-custom".source = ./config/omz-custom;
