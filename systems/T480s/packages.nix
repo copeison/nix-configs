@@ -4,7 +4,7 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.firefox.enable = true;
-  programs.hyprland.enable = true;
+
 
   programs.steam = {
   enable = true;
@@ -27,23 +27,13 @@
     rofi
     mpv
     vlc
-    awww
-    waypaper
-    waybar
-    hypridle
-    hyprlock
-    hyprpolkitagent
-    mako
     lxsession
     fastfetch
     xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
     xdg-user-dirs
     jq
     grim
     slurp
-    wl-clipboard
-    pwvucontrol
     libarchive
     unrar
     deno
@@ -59,10 +49,6 @@
     python315
     inetutils
     p4v
-    nemo
-    nemo-with-extensions
-    nemo-fileroller
-    file-roller
     udiskie
     kdePackages.dolphin
     libreoffice-qt
@@ -77,6 +63,11 @@
     jellyfin-media-player
     agenix
     colmena
+    kdePackages.kio
+    kdePackages.kio-fuse
+    kdePackages.kio-extras
+    kdePackages.dolphin
+    kdePackages.ark
     #osu-stable
     #osu-gatari
     spotatui
