@@ -32,9 +32,9 @@
     colmena = {
       meta.nixpkgs = pkgs;
       meta.specialArgs = { inherit inputs system; };
-      optionsplex = {
+      r33 = {
         deployment = {
-          targetHost = "10.0.0.152";
+          targetHost = "10.0.0.141";
           targetUser = "root";
         };
         imports = [
@@ -46,7 +46,7 @@
       };
       shitbox = {
         deployment = {
-          targetHost = "10.0.0.172";
+          targetHost = "10.0.0.154";
           targetUser = "root";
         };
         imports = [
