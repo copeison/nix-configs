@@ -17,19 +17,12 @@
     consoleLogLevel = 0;
     initrd = {
       availableKernelModules = [
-        # USB2
-        "xhci_pci"
-        # USB1
+        "uhci_hcd"
         "ehci_pci"
-        # SATA
-        "ata_piix"
-        # USB Human Input Device
-        "usbhid"
-        # USB Storage
-        "usb_storage"
-        # Storage Device
+        "ahci"
+        "virtio_pci"
+        "virtio_scsi"
         "sd_mod"
-        # Storage Reader (Disk Drive)
         "sr_mod"
       ];
       kernelModules = [ ];

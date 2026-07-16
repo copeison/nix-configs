@@ -21,7 +21,6 @@
 
       ../../pkgs/overlays.nix
 
-      ./hardware-configuration.nix
       modules/hardware.nix
       modules/agenix.nix
       modules/boot.nix

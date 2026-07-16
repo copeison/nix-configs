@@ -4,6 +4,7 @@ in {
     services.nginx = {
     enable = true;
     enableReload = true;
+    clientMaxBodySize = "200m";
     commonHttpConfig = ''
       # Proxy settings
       proxy_headers_hash_max_size 512;
@@ -40,7 +41,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-      proxyPass = "http://10.0.0.152:6969";
+      proxyPass = "http://10.0.0.141:6969";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header X-Real-IP $remote_addr;
@@ -50,20 +51,12 @@ in {
     };
   };
 
-  services.nginx.virtualHosts."kvm.${config.BaseDomain}" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/" = {
-        proxyPass = "http://10.0.0.28";
-        proxyWebsockets = true;
-      };
-    };
 
     services.nginx.virtualHosts."watch.${config.BaseDomain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:8096";
+        proxyPass = "http://10.0.0.141:8096";
         proxyWebsockets = true;
     };
   };
@@ -72,7 +65,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:9696";
+        proxyPass = "http://10.0.0.141:9696";
         proxyWebsockets = true;
     };
   };
@@ -81,7 +74,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:7878";
+        proxyPass = "http://10.0.0.141:7878";
         proxyWebsockets = true;
     };
   };
@@ -90,7 +83,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:8989";
+        proxyPass = "http://10.0.0.141:8989";
         proxyWebsockets = true;
     };
   };
@@ -99,7 +92,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:5001";
+        proxyPass = "http://10.0.0.141:5001";
         proxyWebsockets = true;
     };
   };
@@ -108,7 +101,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:8686";
+        proxyPass = "http://10.0.0.141:8686";
         proxyWebsockets = true;
     };
   };
@@ -117,7 +110,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:4444";
+        proxyPass = "http://10.0.0.141:4444";
         proxyWebsockets = true;
     };
   };
@@ -126,7 +119,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:5690";
+        proxyPass = "http://10.0.0.141:5690";
         proxyWebsockets = true;
     };
   };
@@ -135,7 +128,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:3900";
+        proxyPass = "http://10.0.0.141:3900";
         proxyWebsockets = true;
     };
   };
@@ -144,7 +137,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:5000";
+        proxyPass = "http://10.0.0.141:5000";
         proxyWebsockets = true;
     };
   };
@@ -153,7 +146,16 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.152:7914";
+        proxyPass = "http://10.0.0.141:7914";
+        proxyWebsockets = true;
+    };
+  };
+
+  services.nginx.virtualHosts."furryporn.ca" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.210:5000";
         proxyWebsockets = true;
     };
   };
@@ -162,7 +164,7 @@ in {
   #  enableACME = true;
   #  forceSSL = true;
   #  locations."/" = {
-  #      proxyPass = "http://10.0.0.152:8081";
+  #      proxyPass = "http://10.0.0.141:8081";
   #      proxyWebsockets = true;
   #  };
   #};

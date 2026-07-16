@@ -24,8 +24,8 @@ in
     #home.file.".config/waybar".recursive = true;
     #home.file.".config/rofi".source = ./config/rofi;
     #home.file.".config/rofi".recursive = true;
-    #home.file.".local/share/rofi".source = ./themes/rofi;
-    #home.file.".local/share/rofi".recursive = true;
+    home.file.".local/share/rofi".source = ./themes/rofi;
+    home.file.".local/share/rofi".recursive = true;
     #home.file.".config/mako".source = ./config/mako;
     #home.file.".config/mako".recursive = true;
     #home.file.".config/hypr".source = ./config/hypr;

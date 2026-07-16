@@ -49,8 +49,7 @@
     python315
     inetutils
     p4v
-    udiskie
-    kdePackages.dolphin
+    #udiskie
     libreoffice-qt
     hunspell
     libdrm
@@ -63,9 +62,6 @@
     jellyfin-media-player
     agenix
     colmena
-    kdePackages.kio
-    kdePackages.kio-fuse
-    kdePackages.kio-extras
     kdePackages.dolphin
     kdePackages.ark
     #osu-stable
@@ -73,7 +69,7 @@
     spotatui
     patreon-dl-gui
     fanbox-dl
-    waybar-module-music
+    #waybar-module-music
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];

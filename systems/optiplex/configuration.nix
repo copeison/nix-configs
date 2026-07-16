@@ -11,18 +11,18 @@ let
   };
 in {
   imports = [
-    "${modulesPath}/installer/scan/not-detected.nix"
+    "${modulesPath}/profiles/qemu-guest.nix"
     modules/agenix.nix
     modules/boot.nix
     services/system/openssh.nix
     services/web/dockge.nix
-    services/web/biolink.nix
-    services/web/patreon-server.nix
+    #services/web/biolink.nix
+    #services/web/patreon-server.nix
     services/web/nginx.nix
     services/web/zipline.nix
-    services/web/mail/mailserver.nix
-    services/web/mail/roundcube.nix
-    services/web/ptero-panel.nix
+    #services/web/mail/mailserver.nix
+    #services/web/mail/roundcube.nix
+    #services/web/ptero-panel.nix
     services/vpn/wireguard.nix
     services/torrenting/flood.nix
     services/torrenting/rtorrent.nix
@@ -33,7 +33,7 @@ in {
     #services/media/lidarr.nix
     services/fileshare/nfs.nix
     services/fileshare/samba.nix
-    services/local/pihole.nix
+    #services/local/pihole.nix
   ];
 
     environment.etc."netns-resolv.conf".text = ''
