@@ -2,30 +2,49 @@
 {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
+    ../../modules/networking/nfsmounts.nix
+    ../../modules/networking/hosts.nix
+    ../../modules/shared/locale.nix
+
     services/system/openssh.nix
     ./boot.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     btop
     conntrack-tools
     dig
     fastfetch
+    firefox
     gdb
     git
     inetutils
     iperf
+    kodi
+    kodiPackages.inputstream-adaptive
+    kodiPackages.jellyfin
     minica
     ncdu
     ndisc6
     net-tools
     openssl
     screen
+    spotify
     tcpdump
     wget
   ];
 
   services.flatpak.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  services.desktopManager.plasma6.enable = true;
 
   services.displayManager = {
     sddm = {
@@ -33,21 +52,17 @@
       wayland.enable = true;
       theme = "breeze";
     };
-    sessionPackages = [ pkgs.kdePackages.plasma-bigscreen ];
-    defaultSession = "plasma-bigscreen-wayland";
   };
 
   xdg.portal = {
     enable = true;
     
     extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ]; 
-    
-    configPackages = [ pkgs.kdePackages.plasma-bigscreen ];
   };
 
   services.displayManager.sddm.settings = {
     Autologin = {
-      Session = "plasma-bigscreen-wayland";
+      Session = "plasma";
       User = "unison";
     };
   };

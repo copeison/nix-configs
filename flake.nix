@@ -19,6 +19,24 @@
         zipline = latestPkgs.zipline;
         jellyfin = latestPkgs.jellyfin;
         jellyfin-ffmpeg = latestPkgs.jellyfin-ffmpeg;
+        rtorrent = super.rtorrent.overrideAttrs (old: finalAttrs: {
+          version = "0.15.6";
+          src = self.fetchFromGitHub {
+            owner = "rakshasa";
+            repo = "rtorrent";
+            rev = "v${finalAttrs.version}";
+            hash = "sha256-B/5m1JXdUpczUMNN4cy5p6YurjmRFxMQHG3cQFSmZSs=";
+          };
+        });
+        libtorrent-rakshasa = super.libtorrent-rakshasa.overrideAttrs (old: finalAttrs: {
+          version = "0.15.6";
+          src = self.fetchFromGitHub {
+            owner = "rakshasa";
+            repo = "libtorrent";
+            rev = "v${finalAttrs.version}";
+            hash = "sha256-udEe9VyUzPXuCTrB3U3+XCbVWvfTT7xNvJJkLSQrRt4=";
+          };
+        });
       })
     ];
 
