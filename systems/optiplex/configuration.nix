@@ -1,52 +1,12 @@
 { config, lib, pkgs, modulesPath, ... }:
-
-let
-  mkNamespace = { name ? "netns" }: {
-    NetworkNamespacePath = "/run/${name}/container";
-    InaccessiblePaths = [
-      "/run/nscd"
-      "/run/resolvconf"
-    ];
-    BindReadOnlyPaths = [ "/etc/netns-resolv.conf:/etc/resolv.conf" ];
-  };
-in {
+{
   imports = [
-    "${modulesPath}/profiles/qemu-guest.nix"
-    modules/agenix.nix
-    modules/boot.nix
+    "${modulesPath}/installer/scan/not-detected.nix"
     services/system/openssh.nix
-    services/web/dockge.nix
-    #services/web/biolink.nix
-    #services/web/patreon-server.nix
-    services/web/nginx.nix
-    services/web/zipline.nix
-    #services/web/mail/mailserver.nix
-    #services/web/mail/roundcube.nix
-    #services/web/ptero-panel.nix
-    services/vpn/wireguard.nix
-    services/torrenting/flood.nix
-    services/torrenting/rtorrent.nix
-    services/media/jellyfin.nix
-    services/media/prowlarr.nix
-    services/media/radarr.nix
-    services/media/sonarr.nix
-    #services/media/lidarr.nix
-    services/fileshare/nfs.nix
-    services/fileshare/samba.nix
-    #services/local/pihole.nix
+    ./boot.nix
   ];
 
-    environment.etc."netns-resolv.conf".text = ''
-    nameserver 1.1.1.1
-    nameserver 8.8.8.8
-    nameserver 2001:4860:4860::8888
-    nameserver 2606:4700:4700::1111
-    options edns0
-  '';
-
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    biolink
     btop
     conntrack-tools
     dig
@@ -60,14 +20,37 @@ in {
     ndisc6
     net-tools
     openssl
-    patreon-dl-server
-    pciutils
-    python315
     screen
     tcpdump
     wget
-    wireguard-tools
   ];
+
+  services.flatpak.enable = true;
+
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      theme = "breeze";
+    };
+    sessionPackages = [ pkgs.kdePackages.plasma-bigscreen ];
+    defaultSession = "plasma-bigscreen-wayland";
+  };
+
+  xdg.portal = {
+    enable = true;
+    
+    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ]; 
+    
+    configPackages = [ pkgs.kdePackages.plasma-bigscreen ];
+  };
+
+  services.displayManager.sddm.settings = {
+    Autologin = {
+      Session = "plasma-bigscreen-wayland";
+      User = "unison";
+    };
+  };
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -81,63 +64,29 @@ in {
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
-    "/data" = {
-      device = "/dev/disk/by-uuid/89318a81-a434-4b0d-b04a-c1f369f8ba5d";
-      fsType = "ext4";
-    };
   };
 
   networking = {
-    extraHosts = ''
-      10.0.0.172 jellyfin.localnet ${config.networking.hostName}
-      10.0.0.172 kvm.localnet ${config.networking.hostName}
-      10.0.0.172 pihole.localnet ${config.networking.hostName}
-      10.0.0.172 downloader.localnet ${config.networking.hostName}
-    '';
     firewall = {
       allowedTCPPorts = [
-        2222 # forgejo ssh
-        3700
-        3900 # forgejo
-        4444 # degoog
-        5000 # the funny
-        5690 # wizarr
-        6661 # wings
-        6969 # BioLink site
-        7914 # vaultwarden
-        8081 # downloader website
-        25565 # minecraft
-      ];
-      allowedUDPPorts = [
-        3700
-        6661 # wings
-        6990
-        25565 # minecraft
-        51820 # WireGuard
       ];
     };
     hostId = "eca03077";
-    hostName = "r33-local";
+    hostName = "optiplex";
     useDHCP = true;
     usePredictableInterfaceNames = false;
   };
 
-  systemd.services = {
-    postfix = {
-      after = [ "wireguard-wg0.service" ];
-      requires = [ "wireguard-wg0.service" ];
-    };
-    postfix-setup = {
-      after = [ "wireguard-wg0.service" ];
-      requires = [ "wireguard-wg0.service" ];
-    };
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-vaapi-driver
+      libvdpau-va-gl
+    ];
+  };
 
-    rtorrent.serviceConfig = mkNamespace {};
-    nginx.serviceConfig = mkNamespace {};
-    dovecot.serviceConfig = mkNamespace {};
-    postfix.serviceConfig = mkNamespace {};
-    postfix-setup.serviceConfig = mkNamespace {};
-    rspamd.serviceConfig = mkNamespace {};
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "i965";
   };
 
   security.acme = {

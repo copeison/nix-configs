@@ -51,6 +51,20 @@ in {
     };
   };
 
+    services.nginx.virtualHosts."pve.${config.BaseDomain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "https://10.0.0.153:8006";
+        proxyWebsockets = true;
+        extraConfig = ''
+        proxy_ssl_verify off;
+        proxy_buffering off;
+        client_max_body_size 0;
+        proxy_read_timeout 600s;
+      '';
+    };
+  };
 
     services.nginx.virtualHosts."watch.${config.BaseDomain}" = {
     enableACME = true;
@@ -155,7 +169,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-        proxyPass = "http://10.0.0.210:5000";
+        proxyPass = "http://10.0.0.204:5000";
         proxyWebsockets = true;
     };
   };

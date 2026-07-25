@@ -40,13 +40,13 @@
         imports = [
           agenix.nixosModules.age
           nixos-mailserver.nixosModule
-          systems/optiplex/configuration.nix
+          systems/R33/configuration.nix
           ./core.nix
         ];
       };
       shitbox = {
         deployment = {
-          targetHost = "10.0.0.154";
+          targetHost = "10.0.0.165";
           targetUser = "root";
         };
         imports = [
@@ -55,14 +55,14 @@
           ./core.nix
         ];
       };
-      mediacenter = {
+      optiplex = {
         deployment = {
-          targetHost = "10.0.0.98";
+          targetHost = "10.0.0.229";
           targetUser = "root";
         };
         imports = [
           agenix.nixosModules.age
-          systems/mediacenter/configuration.nix
+          systems/optiplex/configuration.nix
           ./core.nix
         ];
       };

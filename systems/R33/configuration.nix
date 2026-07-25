@@ -1,0 +1,147 @@
+{ config, lib, pkgs, modulesPath, ... }:
+
+let
+  mkNamespace = { name ? "netns" }: {
+    NetworkNamespacePath = "/run/${name}/container";
+    InaccessiblePaths = [
+      "/run/nscd"
+      "/run/resolvconf"
+    ];
+    BindReadOnlyPaths = [ "/etc/netns-resolv.conf:/etc/resolv.conf" ];
+  };
+in {
+  imports = [
+    "${modulesPath}/profiles/qemu-guest.nix"
+    modules/agenix.nix
+    modules/boot.nix
+    services/system/openssh.nix
+    services/web/dockge.nix
+    #services/web/biolink.nix
+    #services/web/patreon-server.nix
+    services/web/nginx.nix
+    services/web/zipline.nix
+    #services/web/mail/mailserver.nix
+    #services/web/mail/roundcube.nix
+    #services/web/ptero-panel.nix
+    services/vpn/wireguard.nix
+    services/torrenting/flood.nix
+    services/torrenting/rtorrent.nix
+    services/media/jellyfin.nix
+    services/media/prowlarr.nix
+    services/media/radarr.nix
+    services/media/sonarr.nix
+    #services/media/lidarr.nix
+    services/fileshare/nfs.nix
+    services/fileshare/samba.nix
+    #services/local/pihole.nix
+  ];
+
+    environment.etc."netns-resolv.conf".text = ''
+    nameserver 1.1.1.1
+    nameserver 8.8.8.8
+    nameserver 2001:4860:4860::8888
+    nameserver 2606:4700:4700::1111
+    options edns0
+  '';
+
+  nixpkgs.config.allowUnfree = true;
+  environment.systemPackages = with pkgs; [
+    biolink
+    btop
+    conntrack-tools
+    dig
+    fastfetch
+    gdb
+    git
+    inetutils
+    iperf
+    minica
+    ncdu
+    ndisc6
+    net-tools
+    openssl
+    patreon-dl-server
+    pciutils
+    python315
+    screen
+    tcpdump
+    wget
+    wireguard-tools
+  ];
+
+  hardware.cpu.intel.updateMicrocode = true;
+
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/NIXOS_ROOTFS";
+      fsType = "ext4";
+    };
+    "/boot" = {
+      label = "NIXOS_BOOT";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+    "/data" = {
+      device = "/dev/disk/by-uuid/89318a81-a434-4b0d-b04a-c1f369f8ba5d";
+      fsType = "ext4";
+    };
+  };
+
+  networking = {
+    extraHosts = ''
+      10.0.0.172 jellyfin.localnet ${config.networking.hostName}
+      10.0.0.172 kvm.localnet ${config.networking.hostName}
+      10.0.0.172 pihole.localnet ${config.networking.hostName}
+      10.0.0.172 downloader.localnet ${config.networking.hostName}
+    '';
+    firewall = {
+      allowedTCPPorts = [
+        2222 # forgejo ssh
+        3700
+        3900 # forgejo
+        4444 # degoog
+        5000 # the funny
+        5690 # wizarr
+        6661 # wings
+        6969 # BioLink site
+        7914 # vaultwarden
+        8081 # downloader website
+        25565 # minecraft
+      ];
+      allowedUDPPorts = [
+        3700
+        6661 # wings
+        6990
+        25565 # minecraft
+        51820 # WireGuard
+      ];
+    };
+    hostId = "eca03077";
+    hostName = "r33-local";
+    useDHCP = true;
+    usePredictableInterfaceNames = false;
+  };
+
+  systemd.services = {
+    postfix = {
+      after = [ "wireguard-wg0.service" ];
+      requires = [ "wireguard-wg0.service" ];
+    };
+    postfix-setup = {
+      after = [ "wireguard-wg0.service" ];
+      requires = [ "wireguard-wg0.service" ];
+    };
+
+    rtorrent.serviceConfig = mkNamespace {};
+    nginx.serviceConfig = mkNamespace {};
+    dovecot.serviceConfig = mkNamespace {};
+    postfix.serviceConfig = mkNamespace {};
+    postfix-setup.serviceConfig = mkNamespace {};
+    rspamd.serviceConfig = mkNamespace {};
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "unisonsolos@gmail.com";
+  };
+}
