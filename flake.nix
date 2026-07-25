@@ -39,7 +39,6 @@
         };
         imports = [
           agenix.nixosModules.age
-          nixos-mailserver.nixosModule
           systems/R33/configuration.nix
           ./core.nix
         ];
