@@ -3,11 +3,8 @@
 {
   imports =
     [
-      #../../modules/shared/qt.nix
       ../../modules/shared/dconf.nix
       ../../modules/shared/shell.nix
-      #../../modules/shared/xdg.nix
-      #../../modules/shared/gnupg.nix
       ../../modules/shared/services.nix
       ../../modules/shared/kvm.nix
       ../../modules/shared/git.nix
@@ -22,6 +19,7 @@
       home-manager/home.nix
       ./services.nix
       ./packages.nix
+      ./flatpak.nix
       ./hardware-configuration.nix
     ];
 

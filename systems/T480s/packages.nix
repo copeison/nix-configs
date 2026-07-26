@@ -11,15 +11,6 @@
   dedicatedServer.openFirewall = true;
   };
 
-  services.flatpak.remotes = [{
-  name = "flathub"; location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-  }];
-
-  services.flatpak.packages = [
-  "app.zen_browser.zen"
-  "com.github.tchx84.Flatseal"
-  ];
-
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
