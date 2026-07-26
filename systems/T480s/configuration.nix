@@ -3,11 +3,11 @@
 {
   imports =
     [
-      ../../modules/shared/qt.nix
+      #../../modules/shared/qt.nix
       ../../modules/shared/dconf.nix
       ../../modules/shared/shell.nix
-      ../../modules/shared/xdg.nix
-      ../../modules/shared/gnupg.nix
+      #../../modules/shared/xdg.nix
+      #../../modules/shared/gnupg.nix
       ../../modules/shared/services.nix
       ../../modules/shared/kvm.nix
       ../../modules/shared/git.nix
