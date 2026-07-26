@@ -5,14 +5,20 @@
     agenix.url = "github:ryantm/agenix";
     nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     pterodactyl-wings-nix.url = "github:BadCoder-Network/pterodactyl-wings-nix";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-gaming.url = "github:fufexan/nix-gaming";
   };
-  outputs = inputs@{ self, nixpkgs, nixpkgs-latest, agenix, nixos-mailserver, pterodactyl-wings-nix }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-latest, agenix, nixos-mailserver, pterodactyl-wings-nix, home-manager, nix-gaming }:
   let
     system = "x86_64-linux";
 
     flakeOverlays = [
       (self: super: {
         agenix = agenix.outputs.packages.x86_64-linux.agenix;
+        nixGaming = nix-gaming.outputs.packages.${system};
         biolink = self.callPackage pkgs/BioLink {};
         patreon-dl-server = self.callPackage pkgs/patreon-dl-server {};
         sonarr = latestPkgs.sonarr;
@@ -39,6 +45,10 @@
         });
       })
     ];
+
+    specialArgs = {
+      inherit inputs;
+    };
 
     latestPkgs = import nixpkgs-latest { inherit system; };
 
@@ -116,6 +126,26 @@
           pterodactyl-wings-nix.nixosModules.default
           systems/bcdn-nix-2/configuration.nix
           ./core.nix
+        ];
+      };
+    };
+    nixosConfigurations = {
+      # Building a flake system:
+      # nix build .#nixosConfigurations.<name>.config.system.build.toplevel
+      T480s = nixpkgs.lib.nixosSystem {
+        inherit system specialArgs;
+        modules = [
+          agenix.nixosModules.age
+          home-manager.nixosModules.home-manager
+          ({ nixpkgs.overlays = flakeOverlays; })
+          systems/T480s/configuration.nix
+          modules/boot/boot.nix
+          modules/networking/nfsmounts.nix
+          modules/networking/hosts.nix
+          modules/networking/defaults.nix
+          modules/shared/locale.nix
+          modules/shared/users.nix
+          modules/shared/nix-settings.nix
         ];
       };
     };
