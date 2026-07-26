@@ -10,8 +10,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
-  outputs = inputs@{ self, nixpkgs, nixpkgs-latest, agenix, nixos-mailserver, pterodactyl-wings-nix, home-manager, nix-gaming }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-latest, agenix, nixos-mailserver, pterodactyl-wings-nix, home-manager, nix-gaming, nix-flatpak }:
   let
     system = "x86_64-linux";
 
@@ -137,6 +138,7 @@
         modules = [
           agenix.nixosModules.age
           home-manager.nixosModules.home-manager
+          nix-flatpak.nixosModules.nix-flatpak
           ({ nixpkgs.overlays = flakeOverlays; })
           systems/T480s/configuration.nix
           modules/boot/boot.nix

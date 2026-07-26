@@ -11,6 +11,15 @@
   dedicatedServer.openFirewall = true;
   };
 
+  services.flatpak.remotes = [{
+  name = "flathub"; location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+  }];
+
+  services.flatpak.packages = [
+  "app.zen_browser.zen"
+  "com.github.tchx84.Flatseal"
+  ];
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -19,11 +28,7 @@
     nano
     git
     (discord.override { withVencord = true; withOpenASAR = true; })
-    kitty
     alacritty
-    bluetui
-    blueman
-    rofi
     mpv
     vlc
     lxsession
@@ -68,7 +73,6 @@
     spotatui
     patreon-dl-gui
     fanbox-dl
-    #waybar-module-music
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];
