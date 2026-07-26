@@ -88,7 +88,7 @@
           targetUser = "root";
         };
         imports = [
-          agenix.nixosModules.age
+          home-manager.nixosModules.home-manager
           systems/optiplex/configuration.nix
           ./core.nix
         ];

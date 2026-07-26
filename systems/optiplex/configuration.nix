@@ -4,9 +4,9 @@
     "${modulesPath}/installer/scan/not-detected.nix"
     ../../modules/networking/nfsmounts.nix
     ../../modules/networking/hosts.nix
-    ../../modules/shared/locale.nix
 
     services/system/openssh.nix
+    home-manager/home.nix
     ./boot.nix
   ];
 
@@ -21,16 +21,12 @@
     git
     inetutils
     iperf
-    kodi
-    kodiPackages.inputstream-adaptive
-    kodiPackages.jellyfin
     minica
     ncdu
     ndisc6
     net-tools
     openssl
     screen
-    spotify
     tcpdump
     wget
   ];
