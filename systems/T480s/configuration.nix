@@ -3,14 +3,6 @@
 {
   imports =
     [
-      ../../modules/shared/dconf.nix
-      ../../modules/shared/shell.nix
-      ../../modules/shared/services.nix
-      ../../modules/shared/kvm.nix
-      ../../modules/shared/git.nix
-
-      ../../pkgs/overlays.nix
-
       modules/hardware.nix
       modules/agenix.nix
       modules/boot.nix

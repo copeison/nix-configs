@@ -2,7 +2,7 @@ let
   ssh_keys = import ../ssh_keys_personal.nix;
   T480s = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEmKDFKOOuos5aDsCElX22qwMvWg/Rxxg/CBad8LpX6r root@T480s";
   wsl-debian = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO+/e4IxjfnJCaXKczlndKqpfHIw0ry0a+ieZCf90wxR";
-  r33-local = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7Gua0Rx5Ay1IiXR6RFStsPwtH5KNOeML/XHhhFLwfK";
+  r33-local = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhgc9htPbLZB0ehXgN5KvQ/hEGESi6MLX9945erPbg/";
   shittyvps = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG0fCV7QcBNz5iLh2rMtlyGoAAr8nrYC8P68TkhZtTyq";
   bcdn-nix =  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEq35IHi/KPh9ykPUyAHhyTGr/oIR9+T4oyWOkGX/tZ6";
   bcdn-nix-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDpr24zjWZweZGW4+AwQWoA+yuMatc76K5BVaGSb7Q8b";

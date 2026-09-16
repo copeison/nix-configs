@@ -88,12 +88,16 @@
     usePredictableInterfaceNames = false;
   };
 
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-vaapi-driver
-      libvdpau-va-gl
-    ];
+  hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+    opentabletdriver = {
+      enable = true;
+      daemon.enable = true;
+    };
+    uinput.enable = true;
   };
 
   environment.sessionVariables = {
@@ -104,4 +108,8 @@
     acceptTerms = true;
     defaults.email = "unisonsolos@gmail.com";
   };
+
+  boot.kernelModules = [ "uinput" ];
+
+  services.libinput.enable = true;
 }

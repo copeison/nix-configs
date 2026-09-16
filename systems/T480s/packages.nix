@@ -11,8 +11,6 @@
   dedicatedServer.openFirewall = true;
   };
 
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     wget
     curl
@@ -44,7 +42,6 @@
     python315
     inetutils
     p4v
-    #udiskie
     libreoffice-qt
     hunspell
     libdrm
@@ -59,6 +56,7 @@
     colmena
     kdePackages.dolphin
     kdePackages.ark
+    parsec-bin
     #osu-stable
     #osu-gatari
     spotatui

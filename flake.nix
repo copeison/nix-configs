@@ -92,6 +92,7 @@
           home-manager.nixosModules.home-manager
           systems/optiplex/configuration.nix
           ./core.nix
+          pkgs/overlays.nix
         ];
       };
       shittyvps = {
@@ -148,6 +149,12 @@
           modules/shared/locale.nix
           modules/shared/users.nix
           modules/shared/nix-settings.nix
+          modules/shared/dconf.nix
+          modules/shared/shell.nix
+          modules/shared/services.nix
+          modules/shared/kvm.nix
+          modules/shared/git.nix
+          pkgs/overlays.nix
         ];
       };
     };

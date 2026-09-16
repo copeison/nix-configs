@@ -29,6 +29,7 @@ in {
       /data/Share 10.0.0.0/24(rw,async,no_subtree_check)
       /data/Media 10.0.0.0/24(rw,async,no_subtree_check)
       /data/downloads 10.0.0.0/24(rw,async,no_subtree_check)
+      /data/Share/vrc 10.0.0.0/24(rw,async,no_subtree_check)
     '';
   };
 }
