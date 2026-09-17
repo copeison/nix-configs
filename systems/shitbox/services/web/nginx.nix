@@ -41,7 +41,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-      proxyPass = "http://10.0.0.141:6969";
+      proxyPass = "http://10.0.0.211:6969";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header X-Real-IP $remote_addr;
@@ -182,4 +182,41 @@ in {
   #      proxyWebsockets = true;
   #  };
   #};
+
+  #r33
+  services.nginx.virtualHosts."r33.ca" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.211:1337";
+        proxyWebsockets = true;
+    };
+  };
+
+  services.nginx.virtualHosts."status.r33.ca" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.211:3003";
+        proxyWebsockets = true;
+    };
+  };
+
+  services.nginx.virtualHosts."cdn.r33.ca" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.211:1738";
+        proxyWebsockets = true;
+    };
+  };
+
+  services.nginx.virtualHosts."nightfall.r33.ca" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.0.0.211:6661";
+        proxyWebsockets = true;
+    };
+  };
 }
