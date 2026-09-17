@@ -44,11 +44,6 @@
     p4v
     libreoffice-qt
     hunspell
-    libdrm
-    intel-media-driver
-    intel-vaapi-driver
-    libva-vdpau-driver
-    libvdpau-va-gl
     dotnet-sdk_10
     kodi
     jellyfin-media-player
