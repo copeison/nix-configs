@@ -1,0 +1,5 @@
+{ config, ... }:
+
+{
+  boot.kernelModules = [ "uinput" ];
+}

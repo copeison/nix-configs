@@ -158,5 +158,33 @@
         ];
       };
     };
+    nixosConfigurations = {
+      # Building a flake system:
+      # nix build .#nixosConfigurations.<name>.config.system.build.toplevel
+      jik = nixpkgs.lib.nixosSystem {
+        inherit system specialArgs;
+        modules = [
+          agenix.nixosModules.age
+          home-manager.nixosModules.home-manager
+          nix-flatpak.nixosModules.nix-flatpak
+          ({ nixpkgs.overlays = flakeOverlays; })
+          systems/desktop/configuration.nix
+          modules/boot/boot.nix
+          modules/networking/nfsmounts.nix
+          modules/networking/hosts.nix
+          modules/networking/defaults.nix
+          modules/hardware/amdgpu.nix
+          modules/shared/locale.nix
+          modules/shared/users.nix
+          modules/shared/nix-settings.nix
+          modules/shared/dconf.nix
+          modules/shared/shell.nix
+          modules/shared/services.nix
+          modules/shared/kvm.nix
+          modules/shared/git.nix
+          pkgs/overlays.nix
+        ];
+      };
+    };
   };
 }
