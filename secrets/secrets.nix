@@ -1,6 +1,7 @@
 let
   ssh_keys = import ../ssh_keys_personal.nix;
   T480s = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFSwivFyDm9Z8w+tjssVX8vwFNwl7e5f8tmjdSzPKybj";
+  desktop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOE/8lAsojXhaqAOmEZJ3tJi2H5VZwt2Y6PyYGe34QEr";
   wsl-debian = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO+/e4IxjfnJCaXKczlndKqpfHIw0ry0a+ieZCf90wxR";
   r33-local = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhgc9htPbLZB0ehXgN5KvQ/hEGESi6MLX9945erPbg/";
   shittyvps = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG0fCV7QcBNz5iLh2rMtlyGoAAr8nrYC8P68TkhZtTyq";
@@ -10,6 +11,7 @@ let
   keys = ssh_keys ++ [
     wsl-debian
     T480s
+    desktop
     rwf93
   ];
 
