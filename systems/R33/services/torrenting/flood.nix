@@ -11,7 +11,7 @@
     ];
   };
 
-  services.nginx.virtualHosts."flood.yutsu.wtf" = {
+  services.nginx.virtualHosts."flood.r33.ca" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {

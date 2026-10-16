@@ -1,5 +1,5 @@
 let
-  config.BaseDomain = "yutsu.wtf";
+  config.BaseDomain = "r33.ca";
 in {
     services.nginx = {
     enable = true;
@@ -37,7 +37,7 @@ in {
     experimentalZstdSettings = true;
   };
 
-    services.nginx.virtualHosts."${config.BaseDomain}" = {
+    services.nginx.virtualHosts."yutsu.${config.BaseDomain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {

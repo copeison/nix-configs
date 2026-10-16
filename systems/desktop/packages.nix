@@ -45,8 +45,8 @@
     colmena
     kdePackages.dolphin
     kdePackages.ark
-    #osu-stable
-    #osu-gatari
+    osu-stable
+    osu-gatari
     spotatui
     patreon-dl-gui
     fanbox-dl
