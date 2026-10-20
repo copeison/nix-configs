@@ -11,4 +11,6 @@
 
   services.libinput.enable = true;
   
+  services.ratbagd.enable = true;
+
 }

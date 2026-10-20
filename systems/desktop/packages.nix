@@ -45,11 +45,13 @@
     colmena
     kdePackages.dolphin
     kdePackages.ark
+    piper
     osu-stable
     osu-gatari
     spotatui
     patreon-dl-gui
     fanbox-dl
+    (llama-cpp.override { vulkanSupport = true; rocmSupport = true; })
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];

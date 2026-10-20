@@ -1,4 +1,5 @@
 { stdenv
+, requireFile
 , lib
 , fetchurl
 , autoPatchelfHook
@@ -37,11 +38,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "patreon-dl-gui";
-  version = "2.10.0";
+  version = "2.10.3";
 
-  src = fetchurl rec {
-    url = "https://github.com/patrickkfkan/patreon-dl-gui/releases/download/v${finalAttrs.version}/patreon-dl-gui_${finalAttrs.version}_amd64.deb";
-    sha256 = "sha256-Z08iZGwUb5KNbNdQFMF3MSUN9bgOchafvY26MNYrsjk=";
+  src = requireFile {
+    name = "patreon-dl-gui_2.10.3-cw3_amd64.deb";
+    url = "file:///patreon-dl-gui_2.10.3-cw3_amd64.deb";
+    sha256 = "sha256-0PZHZ79xMMe6UByQ3wA9nMTCaQ/NNatk0f8rV9VxDCg=";
   };
 
   nativeBuildInputs = [

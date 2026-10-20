@@ -16,6 +16,7 @@
       };
       patreon-dl-gui = self.callPackage ./patreon-dl-gui {};
       fanbox-dl = self.callPackage ./fanbox-dl {};
+      llama-cpp = self.callPackage ./llama-cpp {};
     })
   ];
 }

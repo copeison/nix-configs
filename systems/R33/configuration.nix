@@ -17,7 +17,7 @@ in {
     services/system/openssh.nix
     services/web/dockge.nix
     #services/web/biolink.nix
-    #services/web/patreon-server.nix
+    services/web/patreon-server.nix
     services/web/nginx.nix
     services/web/zipline.nix
     #services/web/mail/mailserver.nix

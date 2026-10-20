@@ -37,6 +37,9 @@
       pkgs.libreoffice-qt
       pkgs.mpv
       pkgs.vlc
+      pkgs.heroic
+      pkgs.lutris
+      pkgs.obs-studio
     ];
 
     nixpkgs.config.allowUnfree = true;
