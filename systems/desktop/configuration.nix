@@ -6,7 +6,6 @@
       modules/hardware.nix
       modules/agenix.nix
       modules/boot.nix
-      programs/spt.nix
       #modules/dnsmasq.nix
       #modules/wireguard.nix
       home-manager/home.nix

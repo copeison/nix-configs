@@ -49,6 +49,7 @@
     osu-stable
     osu-gatari
     spotatui
+    patchelf
     patreon-dl-gui
     fanbox-dl
     (llama-cpp.override { vulkanSupport = true; rocmSupport = true; })
