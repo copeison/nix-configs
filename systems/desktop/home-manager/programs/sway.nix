@@ -70,6 +70,8 @@ in
         { command = "awww-daemon"; }
         { command = "waypaper --restore"; }
         { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
+        { command = "systemctl --user start opentabletdriver"; }
+        { command = "xrandr --output DP-1 --primary"; }
       ];
 
       keybindings = {

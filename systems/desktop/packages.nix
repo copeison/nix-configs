@@ -55,6 +55,7 @@
     dotnet-sdk_9
     dotnet-sdk_10
     python315
+    gamescope
     inetutils
     hunspell
     agenix
