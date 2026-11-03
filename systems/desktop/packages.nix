@@ -28,6 +28,9 @@
     hypridle
     hyprlock
     hyprpolkitagent
+    lxsession
+    udiskie
+    rofi
     mako
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
