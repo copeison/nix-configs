@@ -5,7 +5,10 @@
 
   programs.firefox.enable = true;
 
-  programs.sway.enable = true;
+  programs.sway = {
+    enable = true;
+    package = pkgs.swayfx;
+  };
 
   programs.steam = {
     enable = true;

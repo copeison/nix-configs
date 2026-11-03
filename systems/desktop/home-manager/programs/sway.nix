@@ -162,6 +162,11 @@ in
         "${mod}+r" = "mode default";
       };
     };
+
+    extraConfig = ''
+      corner_radius 10
+      animation_duration_ms 250
+    '';
   };
 
   services.polkit-gnome.enable = true;
