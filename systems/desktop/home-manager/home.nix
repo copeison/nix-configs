@@ -28,7 +28,7 @@
       pkgs.fallout-ce
       pkgs.fallout2-ce
       pkgs.makemkv
-      pkgs.audacity
+      #pkgs.audacity
       pkgs.qbittorrent
       pkgs.kodi
       pkgs.jellyfin-media-player

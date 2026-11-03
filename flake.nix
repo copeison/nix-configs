@@ -1,7 +1,12 @@
+
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/265d204da2c6616afd5356c935779004b5625d7b";
+    colmena = {
+      url = "github:nix-community/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     agenix.url = "github:ryantm/agenix";
     nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     pterodactyl-wings-nix.url = "github:BadCoder-Network/pterodactyl-wings-nix";
@@ -12,177 +17,163 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
-  outputs = inputs@{ self, nixpkgs, nixpkgs-latest, agenix, nixos-mailserver, pterodactyl-wings-nix, home-manager, nix-gaming, nix-flatpak }:
+
+  outputs = inputs@{
+    self,
+    nixpkgs,
+    nixpkgs-latest,
+    colmena,
+    agenix,
+    nixos-mailserver,
+    pterodactyl-wings-nix,
+    home-manager,
+    nix-gaming,
+    nix-flatpak,
+    ...
+  }:
   let
     system = "x86_64-linux";
 
+    latestPkgs = import nixpkgs-latest {
+      inherit system;
+    };
+
     flakeOverlays = [
-      (self: super: {
-        agenix = agenix.outputs.packages.x86_64-linux.agenix;
-        nixGaming = nix-gaming.outputs.packages.${system};
-        biolink = self.callPackage pkgs/BioLink {};
-        patreon-dl-server = self.callPackage pkgs/patreon-dl-server {};
+      (final: prev: {
+        agenix = agenix.packages.${system}.agenix;
+        nixGaming = nix-gaming.packages.${system};
+
+        biolink = final.callPackage ./pkgs/BioLink {};
+        patreon-dl-server = final.callPackage ./pkgs/patreon-dl-server {};
+
         sonarr = latestPkgs.sonarr;
         zipline = latestPkgs.zipline;
         jellyfin = latestPkgs.jellyfin;
         jellyfin-ffmpeg = latestPkgs.jellyfin-ffmpeg;
-        rtorrent = super.rtorrent.overrideAttrs (old: finalAttrs: {
+
+        rtorrent = prev.rtorrent.overrideAttrs (old: {
           version = "0.15.6";
-          src = self.fetchFromGitHub {
+          src = final.fetchFromGitHub {
             owner = "rakshasa";
             repo = "rtorrent";
-            rev = "v${finalAttrs.version}";
+            rev = "v0.15.6";
             hash = "sha256-B/5m1JXdUpczUMNN4cy5p6YurjmRFxMQHG3cQFSmZSs=";
           };
         });
-        libtorrent-rakshasa = super.libtorrent-rakshasa.overrideAttrs (old: finalAttrs: {
-          version = "0.15.6";
-          src = self.fetchFromGitHub {
-            owner = "rakshasa";
-            repo = "libtorrent";
-            rev = "v${finalAttrs.version}";
-            hash = "sha256-udEe9VyUzPXuCTrB3U3+XCbVWvfTT7xNvJJkLSQrRt4=";
-          };
-        });
+
+        libtorrent-rakshasa =
+          prev.libtorrent-rakshasa.overrideAttrs (old: {
+            version = "0.15.6";
+            src = final.fetchFromGitHub {
+              owner = "rakshasa";
+              repo = "libtorrent";
+              rev = "v0.15.6";
+              hash = "sha256-udEe9VyUzPXuCTrB3U3+XCbVWvfTT7xNvJJkLSQrRt4=";
+            };
+          });
       })
     ];
 
     specialArgs = {
-      inherit inputs;
+      inherit inputs system;
     };
-
-    latestPkgs = import nixpkgs-latest { inherit system; };
 
     pkgs = import nixpkgs {
       inherit system;
       overlays = flakeOverlays;
     };
+
+    sharedDesktopModules = [
+      agenix.nixosModules.age
+      home-manager.nixosModules.home-manager
+      nix-flatpak.nixosModules.nix-flatpak
+
+      { nixpkgs.overlays = flakeOverlays; }
+
+      ./modules/boot/boot.nix
+      ./modules/networking/nfsmounts.nix
+      ./modules/networking/hosts.nix
+      ./modules/networking/defaults.nix
+
+      ./modules/shared/locale.nix
+      ./modules/shared/users.nix
+      ./modules/shared/nix-settings.nix
+      ./modules/shared/dconf.nix
+      ./modules/shared/shell.nix
+      ./modules/shared/services.nix
+      ./modules/shared/kvm.nix
+      ./modules/shared/git.nix
+
+      ./pkgs/overlays.nix
+    ];
   in {
-    colmena = {
-      meta.nixpkgs = pkgs;
-      meta.specialArgs = { inherit inputs system; };
+    colmenaHive = colmena.lib.makeHive {
+      meta = {
+        nixpkgs = pkgs;
+        specialArgs = specialArgs;
+      };
+      defaults = {
+        deployment.targetUser = "root";
+        imports = [ ./core.nix ];
+      };
       r33 = {
-        deployment = {
-          targetHost = "10.0.0.141";
-          targetUser = "root";
-        };
+        deployment.targetHost = "10.0.0.141";
         imports = [
           agenix.nixosModules.age
-          systems/R33/configuration.nix
-          ./core.nix
+          ./systems/R33/configuration.nix
         ];
       };
       shitbox = {
-        deployment = {
-          targetHost = "10.0.0.165";
-          targetUser = "root";
-        };
+        deployment.targetHost = "10.0.0.165";
         imports = [
           agenix.nixosModules.age
-          systems/shitbox/configuration.nix
-          ./core.nix
+          ./systems/shitbox/configuration.nix
         ];
       };
       optiplex = {
-        deployment = {
-          targetHost = "10.0.0.229";
-          targetUser = "root";
-        };
+        deployment.targetHost = "10.0.0.229";
         imports = [
           home-manager.nixosModules.home-manager
-          systems/optiplex/configuration.nix
-          ./core.nix
-          pkgs/overlays.nix
+          ./systems/optiplex/configuration.nix
+          ./pkgs/overlays.nix
         ];
       };
       shittyvps = {
-        deployment = {
-          targetHost = "74.208.73.245";
-          targetUser = "root";
-        };
+        deployment.targetHost = "74.208.73.245";
         imports = [
           agenix.nixosModules.age
-          systems/shittyvps/configuration.nix
-          ./core.nix
+          ./systems/shittyvps/configuration.nix
         ];
       };
       bcdn-nix = {
-        deployment = {
-          targetHost = "23.143.108.37";
-          targetUser = "root";
-        };
+        deployment.targetHost = "23.143.108.37";
         imports = [
           agenix.nixosModules.age
           pterodactyl-wings-nix.nixosModules.default
-          systems/bcdn-nix/configuration.nix
-          ./core.nix
+          ./systems/bcdn-nix/configuration.nix
         ];
       };
       bcdn-nix-2 = {
-        deployment = {
-          targetHost = "23.143.108.23";
-          targetUser = "root";
-        };
+        deployment.targetHost = "23.143.108.23";
         imports = [
           agenix.nixosModules.age
           pterodactyl-wings-nix.nixosModules.default
-          systems/bcdn-nix-2/configuration.nix
-          ./core.nix
+          ./systems/bcdn-nix-2/configuration.nix
         ];
       };
     };
     nixosConfigurations = {
-      # Building a flake system:
-      # nix build .#nixosConfigurations.<name>.config.system.build.toplevel
       T480s = nixpkgs.lib.nixosSystem {
         inherit system specialArgs;
-        modules = [
-          agenix.nixosModules.age
-          home-manager.nixosModules.home-manager
-          nix-flatpak.nixosModules.nix-flatpak
-          ({ nixpkgs.overlays = flakeOverlays; })
-          systems/T480s/configuration.nix
-          modules/boot/boot.nix
-          modules/networking/nfsmounts.nix
-          modules/networking/hosts.nix
-          modules/networking/defaults.nix
-          modules/shared/locale.nix
-          modules/shared/users.nix
-          modules/shared/nix-settings.nix
-          modules/shared/dconf.nix
-          modules/shared/shell.nix
-          modules/shared/services.nix
-          modules/shared/kvm.nix
-          modules/shared/git.nix
-          pkgs/overlays.nix
+        modules = sharedDesktopModules ++ [
+          ./systems/T480s/configuration.nix
         ];
       };
-    };
-    nixosConfigurations = {
-      # Building a flake system:
-      # nix build .#nixosConfigurations.<name>.config.system.build.toplevel
       jik = nixpkgs.lib.nixosSystem {
         inherit system specialArgs;
-        modules = [
-          agenix.nixosModules.age
-          home-manager.nixosModules.home-manager
-          nix-flatpak.nixosModules.nix-flatpak
-          ({ nixpkgs.overlays = flakeOverlays; })
-          systems/desktop/configuration.nix
-          modules/boot/boot.nix
-          modules/networking/nfsmounts.nix
-          modules/networking/hosts.nix
-          modules/networking/defaults.nix
-          modules/hardware/amdgpu.nix
-          modules/shared/locale.nix
-          modules/shared/users.nix
-          modules/shared/nix-settings.nix
-          modules/shared/dconf.nix
-          modules/shared/shell.nix
-          modules/shared/services.nix
-          modules/shared/kvm.nix
-          modules/shared/git.nix
-          pkgs/overlays.nix
+        modules = sharedDesktopModules ++ [
+          ./systems/desktop/configuration.nix
+          ./modules/hardware/amdgpu.nix
         ];
       };
     };

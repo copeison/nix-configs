@@ -6,9 +6,9 @@
   programs.firefox.enable = true;
 
   programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true;
-  dedicatedServer.openFirewall = true;
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -36,11 +36,12 @@
     nodejs
     smartmontools
     android-tools
-    tmate
+    dotnet-sdk_8
+    dotnet-sdk_9
+    dotnet-sdk_10
     python315
     inetutils
     hunspell
-    dotnet-sdk_10
     agenix
     colmena
     kdePackages.dolphin
@@ -48,11 +49,12 @@
     piper
     osu-stable
     osu-gatari
+    osu-lazer-bin
     spotatui
-    patchelf
     patreon-dl-gui
     fanbox-dl
-    (llama-cpp.override { vulkanSupport = true; rocmSupport = true; })
+    usbutils
+    #(llama-cpp.override { vulkanSupport = true; rocmSupport = true; })
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.roboto-mono font-awesome];

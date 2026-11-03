@@ -19,7 +19,7 @@ in {
     #services/web/biolink.nix
     services/web/patreon-server.nix
     services/web/nginx.nix
-    services/web/zipline.nix
+    #services/web/zipline.nix
     #services/web/mail/mailserver.nix
     #services/web/mail/roundcube.nix
     #services/web/ptero-panel.nix

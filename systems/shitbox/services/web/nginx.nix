@@ -165,15 +165,6 @@ in {
     };
   };
 
-  services.nginx.virtualHosts."furryporn.ca" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-        proxyPass = "http://10.0.0.204:5000";
-        proxyWebsockets = true;
-    };
-  };
-
   #services.nginx.virtualHosts."imgoingtobombthejews.${config.BaseDomain}" = {
   #  enableACME = true;
   #  forceSSL = true;
