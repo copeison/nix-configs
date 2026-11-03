@@ -5,7 +5,7 @@
 
   programs.firefox.enable = true;
 
-  programs.hyprland.enable = true;
+  programs.sway.enable = true;
 
   programs.steam = {
     enable = true;
@@ -25,10 +25,7 @@
     awww
     waypaper
     waybar
-    hypridle
-    hyprlock
-    hyprpolkitagent
-    lxsession
+    autotiling
     udiskie
     rofi
     mako

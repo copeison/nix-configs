@@ -7,9 +7,7 @@
       programs/fastfetch.nix
       programs/git.nix
       programs/zsh.nix
-      programs/hyprland.nix
-      #programs/hypridle.nix
-      #programs/hyprlock.nix
+      programs/sway.nix
     ];
 
     programs.bash.enable = true;
