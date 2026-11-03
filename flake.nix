@@ -103,6 +103,7 @@
       ./modules/shared/services.nix
       ./modules/shared/kvm.nix
       ./modules/shared/git.nix
+      ./modules/shared/xdg.nix
 
       ./pkgs/overlays.nix
     ];

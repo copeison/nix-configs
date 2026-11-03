@@ -5,6 +5,8 @@
 
   programs.firefox.enable = true;
 
+  programs.hyprland.enable = true;
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -20,8 +22,18 @@
     alacritty
     lxsession
     fastfetch
+    awww
+    waypaper
+    waybar
+    hypridle
+    hyprlock
+    hyprpolkitagent
+    mako
     xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
     xdg-user-dirs
+    wl-clipboard
+    pwvucontrol
     jq
     grim
     slurp
