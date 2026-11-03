@@ -83,6 +83,7 @@
     };
 
     nixpkgs.config.allowUnfree = true;
+    wayland.windowManager.sway.checkConfig = false;
 
     # The state version is required and should stay at the version you
     # originally installed.

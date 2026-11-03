@@ -5,7 +5,7 @@ in
 {
   wayland.windowManager.sway = {
     enable = true;
-    package = null;
+    package = pkgs.swayfx;
     systemd.xdgAutostart = true;
 
     config = {
